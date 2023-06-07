@@ -1,0 +1,131 @@
+[
+    {
+        "Id": "sha256:de0bfd801801d4839d8c53c29cd645a681b63108d4f4df48fa43462daec6697c",
+        "RepoTags": [
+            "php-composer:latest"
+        ],
+        "RepoDigests": [],
+        "Parent": "sha256:7465aa7a127304a93a491fc291c9bd3a98025f58ccf6c9ce144e2074a21abe67",
+        "Comment": "",
+        "Created": "2023-05-19T23:30:27.05183574Z",
+        "Container": "71461fd34ee44994718f8d02aa473416ecf1aef1c5b0ad5c2ec47dd62a652bac",
+        "ContainerConfig": {
+            "Hostname": "71461fd34ee4",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "PHPIZE_DEPS=autoconf \t\tdpkg-dev dpkg \t\tfile \t\tg++ \t\tgcc \t\tlibc-dev \t\tmake \t\tpkgconf \t\tre2c",
+                "PHP_INI_DIR=/usr/local/etc/php",
+                "PHP_CFLAGS=-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64",
+                "PHP_CPPFLAGS=-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64",
+                "PHP_LDFLAGS=-Wl,-O1 -pie",
+                "GPG_KEYS=39B641343D8C104B2B146DC3F9C39DC0B9698544 E60913E4DF209907D8E30D96659A97C9CF2A795A 1198C0117593497A5EC5C199286AF1F9897469DC",
+                "PHP_VERSION=8.2.6",
+                "PHP_URL=https://www.php.net/distributions/php-8.2.6.tar.xz",
+                "PHP_ASC_URL=https://www.php.net/distributions/php-8.2.6.tar.xz.asc",
+                "PHP_SHA256=10b796f0ed45574229851212b30a596a76e70ae365322bcaaaf9c00fa7d58cca",
+                "COMPOSER_ALLOW_SUPERUSER=1",
+                "COMPOSER_HOME=/tmp",
+                "COMPOSER_VERSION=2.5.5"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "ENTRYPOINT [\"php\" \"artisan\"]"
+            ],
+            "Image": "sha256:7465aa7a127304a93a491fc291c9bd3a98025f58ccf6c9ce144e2074a21abe67",
+            "Volumes": null,
+            "WorkingDir": "/app",
+            "Entrypoint": [
+                "php",
+                "artisan"
+            ],
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "DockerVersion": "20.10.21",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "PHPIZE_DEPS=autoconf \t\tdpkg-dev dpkg \t\tfile \t\tg++ \t\tgcc \t\tlibc-dev \t\tmake \t\tpkgconf \t\tre2c",
+                "PHP_INI_DIR=/usr/local/etc/php",
+                "PHP_CFLAGS=-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64",
+                "PHP_CPPFLAGS=-fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64",
+                "PHP_LDFLAGS=-Wl,-O1 -pie",
+                "GPG_KEYS=39B641343D8C104B2B146DC3F9C39DC0B9698544 E60913E4DF209907D8E30D96659A97C9CF2A795A 1198C0117593497A5EC5C199286AF1F9897469DC",
+                "PHP_VERSION=8.2.6",
+                "PHP_URL=https://www.php.net/distributions/php-8.2.6.tar.xz",
+                "PHP_ASC_URL=https://www.php.net/distributions/php-8.2.6.tar.xz.asc",
+                "PHP_SHA256=10b796f0ed45574229851212b30a596a76e70ae365322bcaaaf9c00fa7d58cca",
+                "COMPOSER_ALLOW_SUPERUSER=1",
+                "COMPOSER_HOME=/tmp",
+                "COMPOSER_VERSION=2.5.5"
+            ],
+            "Cmd": null,
+            "Image": "sha256:7465aa7a127304a93a491fc291c9bd3a98025f58ccf6c9ce144e2074a21abe67",
+            "Volumes": null,
+            "WorkingDir": "/app",
+            "Entrypoint": [
+                "php",
+                "artisan"
+            ],
+            "OnBuild": null,
+            "Labels": null
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 527005576,
+        "VirtualSize": 527005576,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/f0e812b0920dd963e37a217cb91699ffc0d19e7508cffef66fe2e80c66f1fc32/diff:/var/lib/docker/overlay2/79c26c3bb2ec8bbfb203750afff7ca989c80731cc846e96daa83e74e6192cae9/diff:/var/lib/docker/overlay2/73dc99db05f36b1bcce8ec53737002a6e6af9c5815e26d4fe97b113f3378ee52/diff:/var/lib/docker/overlay2/f7e8a2d1a673e33dec01d37377f255c6dc879a38055ebf0c2e210cc609feb5dc/diff:/var/lib/docker/overlay2/ff24c56290bf9aeede7369270ce73fa3431f34815e8be5f86bf73fc3a0a2b5c9/diff:/var/lib/docker/overlay2/8268121edff6a6deae9cbf3bf3c8a4ed33902876202433614c0b6c97e8681a6d/diff:/var/lib/docker/overlay2/13882a9feadc829974c5156cd63d5346782655f4565d615ebf5bf9dd76529b07/diff:/var/lib/docker/overlay2/5cede2a0ce869d8430d00a2d5b790556b9323fa5fde4b49471a58ccff490749c/diff:/var/lib/docker/overlay2/6ddcf826eb4170d6b8f6603a1a3f4ca2d2b3f1927e6bb3cbd4d28208692060b9/diff:/var/lib/docker/overlay2/981a61eaa4309e4a9de99ebb6ade70845e4f82c1ebb60876f552a2ef62e140b6/diff:/var/lib/docker/overlay2/6003de136abdec530d72a37679325ef204bcd14c80f47a0b17e7223487d878cd/diff:/var/lib/docker/overlay2/0fff9d860828366862bb00a27530703acf2c83d55c7ed3ca90b96fd6c0e1ac13/diff:/var/lib/docker/overlay2/bb9f896d5d799266646bd0a7c9b74dda7d65528aeb08ea157695f7575132fcdc/diff:/var/lib/docker/overlay2/e0696e234041a523903423f431f9c26a03a099ae9249df4814a662bd2f8ae25f/diff:/var/lib/docker/overlay2/ffd3f9debe646e1fe05f20491ccb35bfb67c81e2e54f058e34df0c895ff28775/diff",
+                "MergedDir": "/var/lib/docker/overlay2/2480b4ca5d7fbd033eaced6b3f1a4d397fb431dadeb62b58d1b7cda68d80f372/merged",
+                "UpperDir": "/var/lib/docker/overlay2/2480b4ca5d7fbd033eaced6b3f1a4d397fb431dadeb62b58d1b7cda68d80f372/diff",
+                "WorkDir": "/var/lib/docker/overlay2/2480b4ca5d7fbd033eaced6b3f1a4d397fb431dadeb62b58d1b7cda68d80f372/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:bb01bd7e32b58b6694c8c3622c230171f1cec24001a82068a8d30d338f420d6c",
+                "sha256:e759f13eb8bcfe7a681b941a28d64d16bbbd32f73c073bfe91618a0fd1d64d55",
+                "sha256:1a72c946ba2bfe70cd2ff7745f1033e209642a0ce930cee33370f40c813b6611",
+                "sha256:9bbacedbd5e447fe051c0d3a01e07463e538a38a70be137f3431e920beb22de4",
+                "sha256:53b5e1394bc25e3b80260df7a52098232759782d0f97c366fd255672bae998ab",
+                "sha256:aff825926dadd5fb966a07462a8068aaa022ca12f84df24983ff3c50b075e593",
+                "sha256:c76bce6229c63d0ae03bf476ff0c0d40cbbc7fc52967997e171d24733e155646",
+                "sha256:0503c73465084c3460e0c5eea1f50fcc35d971248a8a48ae4c00e00789adcd3e",
+                "sha256:8c2f9e7d94bbe3346804b0942e903c153b04996796daf42a5388c55633449b9c",
+                "sha256:83c0f497ca9c7dfae7100d15abb6d734b9820bf37e53e14bf11e3790882041c1",
+                "sha256:54037b98c12dbadd2dc2d0b007590610ed4d8b20ecbeebce1af6630c0bbfaded",
+                "sha256:959ee47acda509d69da91c40e5b8ffed8f93e0a73ca5285a21a557ba3e6a2bc4",
+                "sha256:897b51f1daf2ecf98c033763e7e12f0c61789e7f48cc959852232c887a49d2ea",
+                "sha256:bd1b36bb95ab6309e862456175e4890fb7b8aace342bd4724c246933fb7152ae",
+                "sha256:197ecd13a113808a325d40bd7c6c46ea7aafb77ad4c305faaa62e2da938ccc62",
+                "sha256:3655012bcc48d8c5a8c79e4f6b127e4fbcaa0572e8ecc3cb7b6d2406995dcf68"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2023-05-20T02:30:28.707495625+03:00"
+        }
+    }
+]
