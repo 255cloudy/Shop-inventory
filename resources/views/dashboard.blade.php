@@ -122,9 +122,9 @@
                     borderColor         : 'rgba(60,141,188,0.8)',
                     pointRadius          : false,
                     pointColor          : '#3b8bba',
-                    pointStrokeColor    : 'rgba(60,141,188,1)',
+                    pointStrokeColor    : 'rgba(60, 171, 108)',
                     pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                    pointHighlightStroke: 'rgba(60, 171, 108)',
                     data                : @json($sales_cash)
                 },
 
@@ -145,7 +145,7 @@
             datasets: [
                 {
                     label               : 'Sales Pcs',
-                    backgroundColor     : 'rgba(210, 214, 222, 1)',
+                    backgroundColor     : 'rgba(60, 171, 108)',
                     borderColor         : 'rgba(210, 214, 222, 1)',
                     pointRadius         : false,
                     pointColor          : 'rgba(210, 214, 222, 1)',

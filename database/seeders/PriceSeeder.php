@@ -21,9 +21,10 @@ class PriceSeeder extends Seeder
         foreach (product::all() as $product)
         {
             $price = new Price();
-            $price->sale_price = order_entry::
-            where("product_id", $product->id)
-            ->inRandomOrder()->first()->retail_price + 100;
+            $retail_price = order_entry::where("product_id", $product->id)
+                                        ->inRandomOrder()->first()->retail_price;
+            $price->sale_price = $retail_price + rand(50, 200);
+            $price-> bp = $retail_price;
             $price->product_id = $product->id;
             $price->save();
         }
