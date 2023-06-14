@@ -79,23 +79,38 @@ class DashboardController extends Controller
     }
     private function getsalesCashMonthly($year){
         $monthly_totals = [];
-        for($month=0; $month<12; $month++){
+        $total = 0;
+        for($month=1; $month<=12; $month++){
             $monthly_total = DB::table("sales")
                                     ->whereYear("updated_at", $year)
                                     ->whereMonth("updated_at", $month)
                                     ->sum("sale_price");
             $monthly_totals[$month] = $monthly_total;
+            $total += $monthly_total;
         }
+        $counter = 1;
+        foreach ($monthly_totals as $monthly_total) {
+            $monthly_totals[$counter] = $monthly_total*100/$total;
+            $counter++;
+        }
+
         return $monthly_totals;
     }
     function getMonthlySalesPcs($year){
         $monthly_totals = [];
-        for($month=0; $month<12; $month++){
+        $total = 0;
+        for($month=1; $month<=12; $month++){
             $monthly_total = DB::table("sales")
                 ->whereYear("updated_at", $year)
                 ->whereMonth("updated_at", $month)
                 ->count();
             $monthly_totals[$month] = $monthly_total;
+            $total += $monthly_total;
+        }
+        $counter = 1;
+        foreach ($monthly_totals as $monthly_total) {
+            $monthly_totals[$counter] = $monthly_total*100/$total;
+            $counter++;
         }
         return $monthly_totals;
     }
