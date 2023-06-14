@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PriceChangeDetected;
 use App\Http\Requests\EntryUpdateRequest;
 use App\Http\Requests\OrderCreateRequest;
 use App\Models\distributer;
 use App\Models\order;
 use App\Models\order_entry;
+use App\Models\Price;
+use App\Models\PriceChange;
 use App\Models\product;
 use App\Models\sale;
 use App\Models\stock;
@@ -58,16 +61,31 @@ class OrderController extends Controller
     }
     function store_entries(Request $request, order $id){
         $entries = json_decode($request->input("data"), true);
-
+        $changes = array();
         foreach ($entries as $entry){
             $entry_object = new order_entry();
             $entry_object->order_id = $id->id;
             $entry_object->product_id = $entry["product"] ;
             $entry_object->qty = $entry["qty"];
             $entry_object->retail_price = $entry["price"] ;
+            $product_price = Price::where("product_id", $entry["product"])->first()->sale_price;
+            if($product_price !== $entry["price"]){
+                $change = PriceChange::create([
+                    "product_id" => $entry["product"],
+                    "from" => $product_price,
+                    "to" => $entry["price"],
+                ]);
+                array_push($changes, $change);
+            }
             $entry_object->save();
         }
         $this->update_stock($entries);
+        if( count($changes) !== 0 ){
+//           foreach ($changes as $change){
+//               PriceChangeDetected::dispatch($change);
+//           }
+            return  view("changed_entries", ["changes"=> $changes]);
+        }
         return redirect()->action([OrderController::class, "view"], ["id"=>$id->id]);
     }
     protected function  update_stock ($entries){
