@@ -292,6 +292,27 @@
                         {{--                            </li>--}}
                         {{--                        </ul>--}}
                     </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link
+                        @active(Route::current()->uri, 'report')
+                            active
+                         @endactive
+                    ">
+                            <i class="nav-icon fas fa-car"></i>
+                            <p>
+                                Reports
+                            </p>
+                        </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route("base-sales") }}" class="nav-link active">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sale Reports</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                    </li>
 
                 </ul>
             </nav>

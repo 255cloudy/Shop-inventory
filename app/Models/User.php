@@ -20,7 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'su',
         'password',
     ];
 
@@ -43,13 +43,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    function sales(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(sale::class, "user_id");
-    }
-    function  orders(){
-        return $this->hasMany(order::class, "user_id");
-    }
 
 }

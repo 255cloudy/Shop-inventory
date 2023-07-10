@@ -17,7 +17,7 @@ class DashboardController extends Controller
         return DB::table("sales")
                         ->whereYear("updated_at", $year)
                         ->whereMonth("updated_at", $month)
-                        ->sum("sale_price");
+                        ->sum("total");
     }
     private function bestDay(){
         $now = Carbon::now();
@@ -69,7 +69,7 @@ class DashboardController extends Controller
                 ->where("product_id", $product->id)
                 ->whereYear("updated_at", $date->year)
                 ->whereMonth("updated_at", $date->month)
-                ->sum("sale_price");
+                ->sum("total");
             if($sum>$highest){
                 $highest = $sum;
                 $best = $product->name;
@@ -84,7 +84,7 @@ class DashboardController extends Controller
             $monthly_total = DB::table("sales")
                                     ->whereYear("updated_at", $year)
                                     ->whereMonth("updated_at", $month)
-                                    ->sum("sale_price");
+                                    ->sum("total");
             $monthly_totals[$month] = $monthly_total;
             $total += $monthly_total;
         }
@@ -103,7 +103,7 @@ class DashboardController extends Controller
             $monthly_total = DB::table("sales")
                 ->whereYear("updated_at", $year)
                 ->whereMonth("updated_at", $month)
-                ->count();
+                ->sum("qty");
             $monthly_totals[$month] = $monthly_total;
             $total += $monthly_total;
         }
@@ -119,7 +119,7 @@ class DashboardController extends Controller
 //        get the sales for a current day
         $sales_today = DB::table("sales")
                 ->whereDate("updated_at", $today)
-                ->sum("sale_price");
+                ->sum("total");
         $sales_this_month = $this->monthly_sales();
         $best_day = $this->bestDay();
         $best_seller = $this->bestSeller();

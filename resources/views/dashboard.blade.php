@@ -130,11 +130,11 @@
                     pointHighlightFill  : '#fff',
 
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : Object.values(@json($sales_cash),
+                    data                : Object.values(@json($sales_cash)),
                 },
                 {
                     label               : 'Sales Pcs %',
-                    backgroundColor     : 'rgba(210, 214, 222, 1),
+                    backgroundColor     : 'rgba(210, 214, 222, 1)',
                     borderColor         : 'rgba(210, 214, 222, 1)',
                     pointRadius         : false,
                     pointColor          : 'rgba(210, 214, 222, 1)',
