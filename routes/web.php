@@ -40,6 +40,7 @@ Route::post('distributer/update/{id}', [\App\Http\Controllers\DistributerControl
 Route::get('sales/all', [\App\Http\Controllers\SaleController::class, 'all_sales'])->name("all_sales");
 Route::get('sales/', [\App\Http\Controllers\SaleController::class, 'make_sale'])->name("make_sale");
 Route::post('sales/', [\App\Http\Controllers\SaleController::class, 'store'])->name("store_sale");
+Route::post('sales/filtered', [\App\Http\Controllers\SaleController::class, 'filtered_sales'])->name("filter_sale");
 Route::post('sales/delete/{id}', [\App\Http\Controllers\SaleController::class, 'delete'])->name("delete-sale");
 Route::post('sales/update/{id}', [\App\Http\Controllers\SaleController::class, 'update'])->name("update-sale");
 
@@ -67,3 +68,7 @@ Route::post('stock/update/{id}', [\App\Http\Controllers\StockController::class, 
 
 Route::get('price/all', [\App\Http\Controllers\PriceController::class, 'index'])->name("all-prices");
 Route::post('price/update/{id}', [\App\Http\Controllers\PriceController::class, 'update'])->name("update-price");
+
+Route::get("report/sales", [\App\Http\Controllers\ReportController::class, 'base_sales'])->name("base-sales");
+Route::post("report/sales", [\App\Http\Controllers\ReportController::class, 'filter_sales'])->name("filter-sales");
+Route::post("report/sales/date", [\App\Http\Controllers\ReportController::class, 'filter_sales_date'])->name("filter-sales-date");

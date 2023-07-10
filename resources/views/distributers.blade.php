@@ -47,30 +47,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="product-update-form" method="POST" action="/asset" >
+                    <form id="product-update-form" method="POST" action="/distributer" >
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" value="{{ old("name") }}"  name="name" class="form-control @error('name', "create") is-invalid invalid-create @enderror" id="product-name" placeholder="name">
                                 @error('name', "create")
-                                <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="amount">qty</label>
-                                <input type="number" value="{{ old("qty") }}" name="amount" class="form-control @error("qty", "create") invalid-create is-invalid @enderror " id="asset-qty" placeholder="description">
-                                @error('qty', "create")
-                                <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for >condition</label>
-                                <select class="form-control select2 @error("category", "create") is-invalid invalid-create @enderror " style="width: 100%;" name="condition">
-                                    <option class="select-option" value="good">good</option>
-                                    <option class="select-option" value="bad">bad</option>
-                                </select>
-                                @error('condition', "create")
                                 <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
