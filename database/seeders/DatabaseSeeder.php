@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
            DistributerSeeder::class,
            OrderSeeder::class,
            PriceSeeder::class,
-           SaleSeeder::class
+           SaleSeeder::class,
+           UserSeeder::class
        ]);
     }
 }

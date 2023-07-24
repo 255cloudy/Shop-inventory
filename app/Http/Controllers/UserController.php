@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserLoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -17,19 +20,19 @@ class UserController extends Controller
        return view('create-user');
     }
 //    do stuff about authentication
-    function add_user(Request $request){
-        $validated = $request->validate([
-            'name' => 'required|unique',
-            'password' => 'required',
-            'su' => 'required|boolean'
-        ]);
-
+    function add_user(UserCreateRequest $request){
+        $validated = $request->validated();
         $user = new User;
         $user->name = $validated['name'];
         $user->password = Hash::make($validated['password']);
-        $user->su = $validated['su'];
+        if($validated['su'] === 'on'){
+            $user->su = true;
+        }
+        else {
+            $user->su = false;
+        }
         $user->save();
-        return redirect('all-users');
+        return redirect()->action([UserController::class, "index"]);
     }
     function update(Request $request, User $user){
         $validated = $request->validate([
@@ -41,10 +44,42 @@ class UserController extends Controller
         $user->password = Hash::make($validated['password']);
         $user->su = $validated['su'];
         $user->save();
-        return redirect('all-users');
+        return redirect()->action([UserController::class, "index"]);
     }
     function delete(Request $request, User $user){
         $user->delete();
         return redirect('all-users');
+    }
+    function login(UserLoginRequest $request){
+        $validated = $request->validated();
+        $credentials = [
+            "name" => $validated["username"],
+            "password" => $validated["password"]
+        ];
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('dashboard');
+        }
+        return back()->withErrors([
+            'name' => 'The provided credentials do not match our records.',
+        ])->onlyInput('username');
+    }
+    function show_login(){
+
+        return view("auth-pages.login", ["page_title"=> "login"]);
+    }
+    function show_registration(){
+        return view("auth-pages.register", ["page_title"=> "Register"]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->action([UserController::class, "show_login"]);
     }
 }

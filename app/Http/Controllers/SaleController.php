@@ -37,10 +37,10 @@ class SaleController extends Controller
     }
     protected function  update_stock($entries){
         foreach ($entries as  $entry){
-            $stock = stock::where("product_id", $entry["product"])->get();
+            $stock = stock::where("product_id", $entry["product"])->first();
             if($stock!= null){
-                $stock[0]->qty -= $entry["qty"];
-                $stock[0]->save();
+                $stock->qty -= (int)$entry["qty"];
+                $stock->save();
             }
         }
     }
@@ -49,10 +49,12 @@ class SaleController extends Controller
         if(count($entries)>0){
             foreach ($entries as  $entry){
                 $sale = new sale();
-                $sale->sale_price = $entry["price"];
+                $price = (int)$entry["price"];
+                $sale->sale_price = $price;
                 $sale->product_id = $entry["product"];
-                $sale->qty = $entry["qty"];
-                $sale->total = $entry["qty"] * $entry["price"];
+                $qty = (int)$entry["qty"];
+                $sale->qty = $qty;
+                $sale->total = $qty * $price;
                 $sale->save();
             }
             $this->update_stock($entries);

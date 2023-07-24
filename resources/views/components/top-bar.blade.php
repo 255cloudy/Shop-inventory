@@ -10,7 +10,9 @@
                 <a href="{{ route("dashboard") }}" class="nav-link">Dashboard</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ route("all_sales") }}" class="nav-link">Dashboard</a>
+                <a href="/user/logout">
+                    <button type="button"  class="btn btn-primary btn-block"><i class="fa fa-power"></i> Logout </button>
+                </a>
             </li>
 
         </ul>
