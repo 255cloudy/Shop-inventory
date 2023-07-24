@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('prices', function (Blueprint $table) {
+        Schema::create('price_changes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("product_id");
             $table->foreign("product_id")
                 ->references("id")
                 ->on("products");
-            $table->float("sale_price");
-            $table->float("bp");
+            $table->float("from");
+            $table->float("to");
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prices');
+        Schema::dropIfExists('price_changes');
     }
 };

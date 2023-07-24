@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SalesFileterdRequest;
 use App\Models\product;
 use App\Models\sale;
 use App\Models\stock;
 use App\Models\Price;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
@@ -19,7 +21,19 @@ class SaleController extends Controller
         ]);
     }
     function all_sales(){
-        return view('all_sales', ["sales"=> sale::orderBy("updated_at", "asc")->get()]);
+        $today = Carbon::now();
+        $sales_up = sale::whereYear("updated_at", $today->year)
+            ->whereMonth("updated_at", $today->month)
+            ->orderBy("updated_at", "asc")
+            ->get();
+        return view('all_sales', ["sales"=> $sales_up]);
+    }
+    function filtered_sales(SalesFileterdRequest $request){
+        $validated = $request->validated();
+        $sales = DB::table("sales")
+            ->whereBetween("updated_at", [$validated["from"], $validated["to"]])
+            ->get();
+        return view("all_sales", ["sales"=> $sales]);
     }
     protected function  update_stock($entries){
         foreach ($entries as  $entry){

@@ -17,7 +17,7 @@ class DashboardController extends Controller
         return DB::table("sales")
                         ->whereYear("updated_at", $year)
                         ->whereMonth("updated_at", $month)
-                        ->sum("sale_price");
+                        ->sum("total");
     }
     private function bestDay(){
         $now = Carbon::now();
@@ -69,7 +69,7 @@ class DashboardController extends Controller
                 ->where("product_id", $product->id)
                 ->whereYear("updated_at", $date->year)
                 ->whereMonth("updated_at", $date->month)
-                ->sum("sale_price");
+                ->sum("total");
             if($sum>$highest){
                 $highest = $sum;
                 $best = $product->name;
@@ -79,23 +79,38 @@ class DashboardController extends Controller
     }
     private function getsalesCashMonthly($year){
         $monthly_totals = [];
-        for($month=0; $month<12; $month++){
+        $total = 0;
+        for($month=1; $month<=12; $month++){
             $monthly_total = DB::table("sales")
                                     ->whereYear("updated_at", $year)
                                     ->whereMonth("updated_at", $month)
-                                    ->sum("sale_price");
+                                    ->sum("total");
             $monthly_totals[$month] = $monthly_total;
+            $total += $monthly_total;
         }
+        $counter = 1;
+        foreach ($monthly_totals as $monthly_total) {
+            $monthly_totals[$counter] = $monthly_total*100/$total;
+            $counter++;
+        }
+
         return $monthly_totals;
     }
     function getMonthlySalesPcs($year){
         $monthly_totals = [];
-        for($month=0; $month<12; $month++){
+        $total = 0;
+        for($month=1; $month<=12; $month++){
             $monthly_total = DB::table("sales")
                 ->whereYear("updated_at", $year)
                 ->whereMonth("updated_at", $month)
-                ->count();
+                ->sum("qty");
             $monthly_totals[$month] = $monthly_total;
+            $total += $monthly_total;
+        }
+        $counter = 1;
+        foreach ($monthly_totals as $monthly_total) {
+            $monthly_totals[$counter] = $monthly_total*100/$total;
+            $counter++;
         }
         return $monthly_totals;
     }
@@ -104,7 +119,7 @@ class DashboardController extends Controller
 //        get the sales for a current day
         $sales_today = DB::table("sales")
                 ->whereDate("updated_at", $today)
-                ->sum("sale_price");
+                ->sum("total");
         $sales_this_month = $this->monthly_sales();
         $best_day = $this->bestDay();
         $best_seller = $this->bestSeller();

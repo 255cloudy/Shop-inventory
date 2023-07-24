@@ -27,7 +27,6 @@
                                     {{ $product->name }}
                                 </td>
                                 <td>
-                                    {{$product->updated_at}}
                                     @php
                                         $date = new Carbon($product->updated_at);
                                         echo $date->tz("EAT")->toDayDateTimeString()
