@@ -63,6 +63,11 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
+        'none' => [
+            'driver' => 'monolog',
+            'handler' => NullHandler::class,
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => env('LOG_PATH'),
