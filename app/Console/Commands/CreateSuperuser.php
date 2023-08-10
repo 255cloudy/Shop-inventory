@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 //use Illuminate\Contracts\Console\PromptsForMissingInput;
 
 class CreateSuperuser extends Command
@@ -32,12 +34,9 @@ class CreateSuperuser extends Command
     {
         $user = new User();
         $user->name = $this->argument("username");
-        $user->password = $this->argument("password");
+        $user->password =  Hash::make($this->argument("password"));
         $user->su = true;
         $user->save();
-        if(User::where("name", $user->name)->first() != null ){
-            return Command::SUCCESS;
-        }
-        return  Command::FAILURE;
+       return Command::SUCCESS;
     }
 }
