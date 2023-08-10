@@ -38,5 +38,6 @@ class CreateSuperuser extends Command
         $user->su = true;
         $user->save();
        return Command::SUCCESS;
+
     }
 }
