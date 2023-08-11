@@ -61,8 +61,8 @@ class UserController extends Controller
             return redirect()->intended('dashboard');
         }
         return back()->withErrors([
-            'name' => 'The provided credentials do not match our records.',
-        ])->onlyInput('username');
+            'error' => 'The provided credentials do not match our records.',
+        ]);
     }
     function show_login(){
 
