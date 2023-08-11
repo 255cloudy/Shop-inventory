@@ -35,28 +35,30 @@ class DashboardController extends Controller
         }
         $index = array_search(max($days), $days);
         $day_in_words = "";
-        switch ($index) {
-            case 0:
-                $day_in_words = "Sunday";
-                break;
-            case 1:
-                $day_in_words = "Monday";
-                break;
-            case 2:
-                $day_in_words = "Tuesday";
-                break;
-            case 3:
-                $day_in_words = "Wednesday";
-                break;
-            case 4:
-                $day_in_words = "Thursday";
-                break;
-            case 5:
-                $day_in_words = "Friday";
-                break;
-            case 6:
-                $day_in_words = "Saturday";
-                break;
+        if($index === 0){ $day_in_words = "None"; } else {
+            switch ($index) {
+                case 0:
+                    $day_in_words = "Sunday";
+                    break;
+                case 1:
+                    $day_in_words = "Monday";
+                    break;
+                case 2:
+                    $day_in_words = "Tuesday";
+                    break;
+                case 3:
+                    $day_in_words = "Wednesday";
+                    break;
+                case 4:
+                    $day_in_words = "Thursday";
+                    break;
+                case 5:
+                    $day_in_words = "Friday";
+                    break;
+                case 6:
+                    $day_in_words = "Saturday";
+                    break;
+            }
         }
         return $day_in_words;
     }
@@ -75,6 +77,9 @@ class DashboardController extends Controller
                 $best = $product->name;
             }
         }
+        if($highest===0){
+            return ["None", "None"];
+        }
         return [$best, $highest];
     }
     private function getsalesCashMonthly($year){
@@ -90,7 +95,9 @@ class DashboardController extends Controller
         }
         $counter = 1;
         foreach ($monthly_totals as $monthly_total) {
-            $monthly_totals[$counter] = $monthly_total*100/$total;
+            if($monthly_total ===0 || $total===0 ){
+                $monthly_totals[$counter] =0;
+            }else {$monthly_totals[$counter] = $monthly_total*100/$total;}
             $counter++;
         }
 
@@ -109,7 +116,9 @@ class DashboardController extends Controller
         }
         $counter = 1;
         foreach ($monthly_totals as $monthly_total) {
-            $monthly_totals[$counter] = $monthly_total*100/$total;
+            if($monthly_total ===0 || $total===0 ){
+                $monthly_totals[$counter] =0;
+            }else {$monthly_totals[$counter] = $monthly_total*100/$total;}
             $counter++;
         }
         return $monthly_totals;
@@ -120,7 +129,7 @@ class DashboardController extends Controller
         $sales_today = DB::table("sales")
                 ->whereDate("updated_at", $today)
                 ->sum("total");
-        $sales_this_month = $this->monthly_sales();
+        $sales_this_month = ($this->monthly_sales() < 1)? 0 : $this->monthly_sales();
         $best_day = $this->bestDay();
         $best_seller = $this->bestSeller();
         $best_product = $best_seller[0];
