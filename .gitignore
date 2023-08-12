@@ -16,3 +16,4 @@ yarn-error.log
 /.vscode
 pombe-management.md
 database/database.sqlite
+/vendor
