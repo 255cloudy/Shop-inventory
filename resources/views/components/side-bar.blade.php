@@ -298,7 +298,7 @@
                             active
                          @endactive
                     ">
-                            <i class="nav-icon fas fa-car"></i>
+                            <i class="nav-icon fas fa-print"></i>
                             <p>
                                 Reports
                             </p>
