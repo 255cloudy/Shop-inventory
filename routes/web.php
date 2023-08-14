@@ -33,23 +33,23 @@ Route::get('product/delete/{id}', [\App\Http\Controllers\ProductController::clas
 Route::post('product/update/{id}', [\App\Http\Controllers\ProductController::class, 'update'])->name("update-product")->middleware('auth');
 
 Route::get('distributer/all', [\App\Http\Controllers\DistributerController::class, 'index'])->name("all-distributers")->middleware('auth');
-Route::post('distributer/', [\App\Http\Controllers\DistributerController::class, 'create'])->name("create-distributer");
+Route::post('distributer/', [\App\Http\Controllers\DistributerController::class, 'create'])->name("create-distributer")->middleware('auth');
 Route::get('distributer/delete/{id}', [\App\Http\Controllers\DistributerController::class, 'delete'])->name("delete-distributer")->middleware('auth');
 Route::post('distributer/update/{id}', [\App\Http\Controllers\DistributerController::class, 'update'])->name("update-distributer")->middleware('auth');
 
 
-Route::get('sales/all', [\App\Http\Controllers\SaleController::class, 'all_sales'])->name("all_sales");
-Route::get('sales/', [\App\Http\Controllers\SaleController::class, 'make_sale'])->name("make_sale");
-Route::post('sales/', [\App\Http\Controllers\SaleController::class, 'store'])->name("store_sale");
-Route::post('sales/filtered', [\App\Http\Controllers\SaleController::class, 'filtered_sales'])->name("filter_sale");
-Route::post('sales/delete/{id}', [\App\Http\Controllers\SaleController::class, 'delete'])->name("delete-sale");
-Route::post('sales/update/{id}', [\App\Http\Controllers\SaleController::class, 'update'])->name("update-sale");
+Route::get('sales/all', [\App\Http\Controllers\SaleController::class, 'all_sales'])->name("all_sales")->middleware('auth');
+Route::get('sales/', [\App\Http\Controllers\SaleController::class, 'make_sale'])->name("make_sale")->middleware('auth');
+Route::post('sales/', [\App\Http\Controllers\SaleController::class, 'store'])->name("store_sale")->middleware('auth');
+Route::post('sales/filtered', [\App\Http\Controllers\SaleController::class, 'filtered_sales'])->name("filter_sale")->middleware('auth');
+Route::post('sales/delete/{id}', [\App\Http\Controllers\SaleController::class, 'delete'])->name("delete-sale")->middleware('auth');
+Route::post('sales/update/{id}', [\App\Http\Controllers\SaleController::class, 'update'])->name("update-sale")->middleware('auth');
 
 Route::get('order/all', [\App\Http\Controllers\OrderController::class, 'index'])->name("all-orders")->middleware('auth');
 Route::get('order/view/{id}', [\App\Http\Controllers\OrderController::class, 'view'])->name("create-order")->middleware('auth');
 Route::get('order/delete/{order}/{id}', [\App\Http\Controllers\OrderController::class, 'delete'])->name("delete-order")->middleware('auth');;
 Route::post('order/update/{id}', [\App\Http\Controllers\OrderController::class, 'update_entry'])->name("update-order-entry")->middleware('auth');;
-Route::post('order/', [\App\Http\Controllers\OrderController::class, 'add'])->name("add-order");
+Route::post('order/', [\App\Http\Controllers\OrderController::class, 'add'])->name("add-order")->middleware('auth');
 Route::get('order/create/{id}', [\App\Http\Controllers\OrderController::class, 'add_entries'])->name("add_entries")->middleware('auth');
 Route::post('order/create/{id}', [\App\Http\Controllers\OrderController::class, 'store_entries'])->name("store_entries")->middleware('auth');
 
@@ -71,15 +71,15 @@ Route::get('price/all', [\App\Http\Controllers\PriceController::class, 'index'])
 Route::post('price/update/{id}', [\App\Http\Controllers\PriceController::class, 'update'])->name("update-price")->middleware('auth');
 
 
-Route::get('user/all', [\App\Http\Controllers\UserController::class, 'index'])->name("all-users");
+Route::get('user/all', [\App\Http\Controllers\UserController::class, 'index'])->name("all-users")->middleware('auth');
 Route::get('user/login', [\App\Http\Controllers\UserController::class, 'show_login'])->name("login-show");
-Route::get('user/logout', [\App\Http\Controllers\UserController::class, 'logout'])->name("logout");
+Route::get('user/logout', [\App\Http\Controllers\UserController::class, 'logout'])->name("logout")->middleware('auth');
 Route::post('user/login', [\App\Http\Controllers\UserController::class, 'login'])->name("login");
 Route::get('user/registration', [\App\Http\Controllers\UserController::class, 'show_registration'])->name("registration-show")->middleware('auth');
 Route::post('user/registration', [\App\Http\Controllers\UserController::class, 'add_user'])->name("registration")->middleware('auth');
 
 
-Route::get("report/sales", [\App\Http\Controllers\ReportController::class, 'base_sales'])->name("base-sales");
-Route::post("report/sales", [\App\Http\Controllers\ReportController::class, 'filter_sales'])->name("filter-sales");
-Route::post("report/sales/date", [\App\Http\Controllers\ReportController::class, 'filter_sales_date'])->name("filter-sales-date");
+Route::get("report/sales", [\App\Http\Controllers\ReportController::class, 'base_sales'])->name("base-sales")->middleware('auth');
+Route::post("report/sales", [\App\Http\Controllers\ReportController::class, 'filter_sales'])->name("filter-sales")->middleware('auth');
+Route::post("report/sales/date", [\App\Http\Controllers\ReportController::class, 'filter_sales_date'])->name("filter-sales-date")->middleware('auth');
 
