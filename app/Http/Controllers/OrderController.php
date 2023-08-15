@@ -39,7 +39,16 @@ class OrderController extends Controller
             "retail_price" => $validated["price"],
             "qty" => $validated["qty"]
         ]);
-        return redirect()->action([OrderController::class, "view"], ["id"=>$id->order->id]);
+//        recalculate the total
+        $order = $id->order;
+        $total = 0;
+        foreach ($order->entries as $entry){
+          $subtotal = $entry->qty * $entry->retail_price;
+          $total += $subtotal;
+        }
+        $order->total = $total;
+        $order->save();
+        return redirect()->action([OrderController::class, "view"], ["id"=> $order->id]);
     }
     function delete(Request $request, order_entry $id){
         $id->delete();
@@ -62,12 +71,15 @@ class OrderController extends Controller
     function store_entries(Request $request, order $id){
         $entries = json_decode($request->input("data"), true);
         $changes = array();
+        $total = 0;
         foreach ($entries as $entry){
             $entry_object = new order_entry();
             $entry_object->order_id = $id->id;
             $entry_object->product_id = $entry["product"] ;
             $entry_object->qty = $entry["qty"];
             $entry_object->retail_price = $entry["price"] ;
+            $sub_total = $entry["qty"] * $entry["price"];
+            $total += $sub_total;
             $product_price = Price::where("product_id", $entry["product"])->first()->sale_price;
             if($product_price !== $entry["price"]){
                 $change = PriceChange::create([
@@ -80,12 +92,15 @@ class OrderController extends Controller
             $entry_object->save();
         }
         $this->update_stock($entries);
+        $id->total = $total;
+        $id->save();
         if( count($changes) !== 0 ){
 //           foreach ($changes as $change){
 //               PriceChangeDetected::dispatch($change);
 //           }
             return  view("changed_entries", ["changes"=> $changes]);
         }
+        dd($id);
         return redirect()->action([OrderController::class, "view"], ["id"=>$id->id]);
     }
     protected function  update_stock ($entries){
