@@ -100,7 +100,6 @@ class OrderController extends Controller
 //           }
             return  view("changed_entries", ["changes"=> $changes]);
         }
-        dd($id);
         return redirect()->action([OrderController::class, "view"], ["id"=>$id->id]);
     }
     protected function  update_stock ($entries){
