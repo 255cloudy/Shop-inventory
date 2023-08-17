@@ -27,4 +27,7 @@ class order extends Model
     {
         return OrderFactory::new();
     }
+    function changes(){
+        return $this->hasMany(PriceChange::class, "order_id");
+    }
 }
