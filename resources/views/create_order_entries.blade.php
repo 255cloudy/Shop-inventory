@@ -114,7 +114,7 @@
             }
         }
         let table1 = $("#example1").DataTable({
-            "responsive": true, "lengthChange": true, "pageLength":5, "autoWidth": false,"ordering":false,
+            "responsive": true, "lengthChange": true, "pageLength":50, "autoWidth": false,"ordering":false,
             "buttons": ["excel", "pdf", "print", "colvis"]
         });
         table1.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
