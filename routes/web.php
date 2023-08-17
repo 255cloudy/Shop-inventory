@@ -52,6 +52,8 @@ Route::post('order/update/{id}', [\App\Http\Controllers\OrderController::class, 
 Route::post('order/', [\App\Http\Controllers\OrderController::class, 'add'])->name("add-order")->middleware('auth');
 Route::get('order/create/{id}', [\App\Http\Controllers\OrderController::class, 'add_entries'])->name("add_entries")->middleware('auth');
 Route::post('order/create/{id}', [\App\Http\Controllers\OrderController::class, 'store_entries'])->name("store_entries")->middleware('auth');
+Route::get('order/changed/{order}', [\App\Http\Controllers\OrderController::class, 'changed_entries'])->name("changed_entries")->middleware('auth');
+Route::post('order/changed/{order}', [\App\Http\Controllers\OrderController::class, 'update_changes'])->name("update_changes")->middleware('auth');
 
 Route::get('expense/all', [\App\Http\Controllers\ExpenseController::class, 'index'])->name("all-expenses")->middleware('auth');
 Route::post('expense/', [\App\Http\Controllers\ExpenseController::class, 'store'])->name("create-expense")->middleware('auth');

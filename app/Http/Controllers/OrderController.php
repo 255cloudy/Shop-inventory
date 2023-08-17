@@ -14,6 +14,7 @@ use App\Models\product;
 use App\Models\sale;
 use App\Models\stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -86,6 +87,7 @@ class OrderController extends Controller
                     "product_id" => $entry["product"],
                     "from" => $product_price,
                     "to" => $entry["price"],
+                    "order_id" => $id->id
                 ]);
                 array_push($changes, $change);
             }
@@ -98,7 +100,7 @@ class OrderController extends Controller
 //           foreach ($changes as $change){
 //               PriceChangeDetected::dispatch($change);
 //           }
-            return  view("changed_entries", ["changes"=> $changes]);
+            return  redirect()->action([OrderController::class, "changed_entries"], ["order"=>$id->id]);
         }
         return redirect()->action([OrderController::class, "view"], ["id"=>$id->id]);
     }
@@ -122,6 +124,21 @@ class OrderController extends Controller
                ]);
            }
        }
+    }
+
+    public function changed_entries(Request $request, order $order){
+        $changes =PriceChange::where("order_id", $order->id)->get();
+        return view("changed_entries", ["changes"=> $changes]);
+    }
+
+    public function update_changes(Request $request){
+        $entries = $entries = json_decode($request->input("entries"), true);
+        foreach ($entries as $entry){
+            $price = Price::where("product_id", $entry["product"])->first();
+            $price->sale_price = $entry["sp"];
+            $price->save();
+        }
+        return redirect()->action([PriceController::class, "index"]);
     }
 
 }

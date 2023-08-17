@@ -28,4 +28,7 @@ class product extends Model
     {
         return ProductFactory::new();
     }
+    function changes() {
+        return $this->hasMany(price_changes::class, "product_id");
+    }
 }
