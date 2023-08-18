@@ -84,4 +84,5 @@ Route::post('user/registration', [\App\Http\Controllers\UserController::class, '
 Route::get("report/sales", [\App\Http\Controllers\ReportController::class, 'base_sales'])->name("base-sales")->middleware('auth');
 Route::post("report/sales", [\App\Http\Controllers\ReportController::class, 'filter_sales'])->name("filter-sales")->middleware('auth');
 Route::post("report/sales/date", [\App\Http\Controllers\ReportController::class, 'filter_sales_date'])->name("filter-sales-date")->middleware('auth');
-
+Route::get("report/profit", [\App\Http\Controllers\ReportController::class, 'profit'])->name("profit")->middleware('auth');
+Route::post("report/profit", [\App\Http\Controllers\ReportController::class, 'filter_profit'])->name("profit")->middleware('auth');

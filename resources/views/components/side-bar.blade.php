@@ -53,7 +53,10 @@
                         <a href="{{ route('all_sales') }}" class="nav-link
                          @active(Route::current()->uri, 'sales')
                             active
+                            menu-is-opening
+                            menu-open
                          @endactive
+
                     ">
                             <i class="nav-icon fas fa-credit-card"></i>
                             <p>
@@ -296,6 +299,8 @@
                         <a href="" class="nav-link
                         @active(Route::current()->uri, 'report')
                             active
+                            menu-is-opening
+                            menu-open
                          @endactive
                     ">
                             <i class="nav-icon fas fa-print"></i>
@@ -305,9 +310,23 @@
                         </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route("base-sales") }}" class="nav-link active">
+                                    <a href="{{ route("base-sales") }}" class="nav-link
+                                    @if(Route::current()->uri == "report/sales")
+                                        active
+                                     @endif
+                                    "
+                                    >
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Sale Reports</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route("profit") }}" class="nav-link
+                                     @if(Route::current()->uri == "report/profit")
+                                        active
+                                     @endif">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Profit/Loss Reports</p>
                                     </a>
                                 </li>
 

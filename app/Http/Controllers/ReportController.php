@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FilterSalesDateRequest;
 use App\Http\Requests\FilterSalesRequest;
+use App\Http\Requests\ProfitFilterRequest;
+use App\Models\expense;
 use App\Models\product;
 use App\Models\sale;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use mysql_xdevapi\Table;
 
 class ReportController extends Controller
 {
@@ -237,5 +240,138 @@ class ReportController extends Controller
             "query"=> $date,
             "isQueried"=> "date"
         ]);
+    }
+    public function profit(Request $request){
+        $product_data = [];
+        $sales_total = 0;
+        $profit_total = 0;
+        $bp_sum = 0;
+        $today = Carbon::today();
+        foreach (product::all() as $product){
+            $sales = DB::table("sales")
+                        ->where("product_id", $product->id)
+                        ->whereMonth("updated_at", $today->month)
+                        ->sum("total");
+            $pcs = DB::table("sales")
+                ->where("product_id", $product->id)
+                ->whereMonth("updated_at", $today->month)
+                ->count();
+            $sales_total += $sales;
+            $bp = DB::table("prices")
+                ->where("product_id", $product->id)
+                ->first();
+            $bp_total = $pcs * $bp->bp;
+            $bp_sum += $bp_total;
+            $profit =  $sales - $bp_total;
+            $profit_total += $profit;
+            array_push($product_data, [
+                "product" => $product->name,
+                "sales" => $sales,
+                "bp" => $bp_total,
+                "profit" => $profit
+            ]);
+        }
+        $expenses = DB::table("expenses")
+            ->whereMonth("updated_at", $today->month)
+            ->sum("amount");
+        $profit_total -= $expenses;
+        return view("profits", [
+            "product_data"=> $product_data,
+            "from" => $today->firstOfMonth(),
+            "to" => $today->lastOfMonth(),
+            "profit_total" => $profit_total,
+            "bp_total" => $bp_sum,
+            "sales_total" => $sales_total,
+            "expenses" => $expenses
+        ]);
+    }
+
+    public function filter_profit(ProfitFilterRequest $request){
+        $product_data = [];
+        $sales_total = 0;
+        $profit_total = 0;
+        $bp_sum = 0;
+        $from = new Carbon($request->validated("from"));
+        $to = new  Carbon($request->validated("to"));
+        if($from->gt($to)){
+            return back()->withErrors(["dates"=> "from date cant be greater than to date"])->withInput();
+        }
+        if($from->eq($to)){
+            foreach (product::all() as $product){
+                $sales = DB::table("sales")
+                    ->where("product_id", $product->id)
+                    -> whereDate("updated_at", $request->validated("from"))
+                    ->sum("total");
+                $pcs = DB::table("sales")
+                    ->where("product_id", $product->id)
+                    -> whereDate("updated_at", $request->validated("from"))
+                    ->count();
+                $sales_total += $sales;
+                $bp = DB::table("prices")
+                    ->where("product_id", $product->id)
+                    ->first();
+                $bp_total = $pcs * $bp->bp;
+                $bp_sum += $bp_total;
+                $profit =  $sales - $bp_total;
+                $profit_total += $profit;
+                array_push($product_data, [
+                    "product" => $product->name,
+                    "sales" => $sales,
+                    "bp" => $bp_total,
+                    "profit" => $profit
+                ]);
+            }
+            $expenses = DB::table("expenses")
+                ->whereDate("updated_at", $request->validated("from"))
+                ->sum("amount");
+            $profit_total -= $expenses;
+            return view("profits", [
+                "product_data"=> $product_data,
+                "from" => $from->toDateString(),
+                "to" => $to->toDateString(),
+                "profit_total" => $profit_total,
+                "bp_total" => $bp_sum,
+                "sales_total" => $sales_total,
+                "expenses" => $expenses
+            ]);
+        }
+        foreach (product::all() as $product){
+            $sales = DB::table("sales")
+                ->where("product_id", $product->id)
+                -> whereBetween("updated_at", [$request->validated("from"), $request->validated("to")])
+                ->sum("total");
+            $pcs = DB::table("sales")
+                ->where("product_id", $product->id)
+                -> whereBetween("updated_at", [$request->validated("from"), $request->validated("to")])
+                ->count();
+            $sales_total += $sales;
+            $bp = DB::table("prices")
+                ->where("product_id", $product->id)
+                ->first();
+            $bp_total = $pcs * $bp->bp;
+            $bp_sum += $bp_total;
+            $profit =  $sales - $bp_total;
+            $profit_total += $profit;
+            array_push($product_data, [
+                "product" => $product->name,
+                "sales" => $sales,
+                "bp" => $bp_total,
+                "profit" => $profit
+            ]);
+        }
+        $expenses = DB::table("expenses")
+            -> whereBetween("updated_at", [$request->validated("from"), $request->validated("to")])
+            ->sum("amount");
+        $profit_total -= $expenses;
+        return view("profits", [
+            "product_data"=> $product_data,
+            "from" => $from->toDateString(),
+            "to" => $to->toDateString(),
+            "profit_total" => $profit_total,
+            "bp_total" => $bp_sum,
+            "sales_total" => $sales_total,
+            "expenses" => $expenses
+        ]);
+
     }
 }
