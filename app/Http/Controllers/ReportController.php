@@ -255,7 +255,7 @@ class ReportController extends Controller
             $pcs = DB::table("sales")
                 ->where("product_id", $product->id)
                 ->whereMonth("updated_at", $today->month)
-                ->count();
+                ->sum("qty");
             $sales_total += $sales;
             $bp = DB::table("prices")
                 ->where("product_id", $product->id)

@@ -81,7 +81,7 @@ class OrderController extends Controller
             $entry_object->retail_price = $entry["price"] ;
             $sub_total = $entry["qty"] * $entry["price"];
             $total += $sub_total;
-            $product_price = Price::where("product_id", $entry["product"])->first()->sale_price;
+            $product_price = Price::where("product_id", $entry["product"])->first()->bp;
             if($product_price !== $entry["price"]){
                 $change = PriceChange::create([
                     "product_id" => $entry["product"],
@@ -91,6 +91,9 @@ class OrderController extends Controller
                 ]);
                 array_push($changes, $change);
             }
+            $price = Price::where("product_id", $entry["product"])->first();
+            $price->bp = $entry["price"];
+            $price->save();
             $entry_object->save();
         }
         $this->update_stock($entries);
