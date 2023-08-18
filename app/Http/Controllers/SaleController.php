@@ -22,18 +22,22 @@ class SaleController extends Controller
     }
     function all_sales(){
         $today = Carbon::now();
-        $sales_up = sale::whereYear("updated_at", $today->year)
-            ->whereMonth("updated_at", $today->month)
+        $sales_up = sale::where("created_at", ">=",  $today->toDateString())
+            ->where("created_at", "<",  $today->addDay(1)->toDateString())
             ->orderBy("updated_at", "asc")
             ->get();
-        return view('all_sales', ["sales"=> $sales_up]);
+        return view('all_sales', ["sales"=> $sales_up,
+            "today"=> $today->toDateString(),
+            "from"=> $today->toDateString(),
+            "to" => $today->toDateString()
+        ]);
     }
     function filtered_sales(SalesFileterdRequest $request){
         $validated = $request->validated();
         $sales = DB::table("sales")
             ->whereBetween("updated_at", [$validated["from"], $validated["to"]])
             ->get();
-        return view("all_sales", ["sales"=> $sales]);
+        return view("all_sales", ["sales"=> $sales, "from"=>$validated["from"], "to"=>$validated["to"]]);
     }
     protected function  update_stock($entries){
         foreach ($entries as  $entry){

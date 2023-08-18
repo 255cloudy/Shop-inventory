@@ -14,22 +14,35 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>From:</label>
-                                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                            <input type="text" id="from" value="" name="from" class="form-control datetimepicker-input" data-target="#reservationdate">
-                                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                        <div class="input-group date" id="reservationdatefrom" data-target-input="nearest">
+                                            <input type="text" value="{{ $from }}" name="from" class="form-control datetimepicker-input
+                                            @error("from")
+                                                is-invalid
+                                            @enderror
+                                            " data-target="#reservationdatefrom">
+                                            <div class="input-group-append" data-target="#reservationdatefrom" data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>
+                                            @error('from')
+                                            <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $errors->first('from') }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>To:</label>
-                                        <div class="input-group date" id="reservationdate1" data-target-input="nearest">
-                                            <input type="text" id="to"  name="to" class="form-control datetimepicker-input" data-target="#reservationdate">
-                                            <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
+                                        <div class="input-group date" id="reservationdateto" data-target-input="nearest">
+                                            <input type="text" value="{{ $to }}" name="to" class="form-control datetimepicker-input
+                                            @error('to')
+                                                is-invalid
+                                            @enderror" data-target="#reservationdateto">
+                                            <div class="input-group-append" data-target="#reservationdateto" data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>
+                                            @error('to')
+                                            <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $errors->first('to') }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -110,6 +123,18 @@
         }
     </style>
 @endsection
+@section("extra-css")
+    <style>
+        #card-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+    <link rel="stylesheet" href={{ asset("js/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}>
+    <link rel="stylesheet" href={{ asset("js/plugins/daterangepicker/daterangepicker.css") }}>
+@endsection
 @section('extra-js')
     <script src={{ asset("js/plugins/datatables/jquery.dataTables.min.js") }}></script>
     <script src={{ asset("js/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}></script>
@@ -125,24 +150,19 @@
     <script src={{ asset("js/plugins/datatables-buttons/js/buttons.colVis.min.js") }}></script>
     <script src={{ asset("js/plugins/moment/moment.min.js")}}></script>
     <script src= {{ asset("js/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js")}}></script>
-    <script src={{ asset("js/plugins/daterangepicker/daterangepicker.js")}}></script>
     <script>
         $(function() {
             if($(".invalid-update").length>0){
                 $("#product-update-modal").modal().show();
             }
-            $('#reservationdate').datetimepicker({
-                    format: 'l'
-            });
-            $('#reservationdate1').datetimepicker({
-                    format: 'l'
+                $('#reservationdatefrom').datetimepicker({
+                    format: 'Y-M-D'
                 });
-            $('#reservationdate2').daterangepicker();
+                $('#reservationdateto').datetimepicker({
+                    format: 'Y-M-D'
+                });
         }
         );
-        let date = moment().format("l");
-        $("#from").attr("value", date);
-        $("#to").attr("value", date);
         function updateProduct(product){
             let url = "/stock/update/"+product.id;
             $("#product-update-form").attr("action", url);
@@ -163,16 +183,5 @@
         $("#stock-total").text("Total: " + colTotal);
     </script>
 @endsection
-@section("extra-css")
-    <style>
-        #card-header {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
-    <link rel="stylesheet" href={{ asset("js/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}>
-    <link rel="stylesheet" href={{ asset("js/plugins/daterangepicker/daterangepicker.css") }}>
-@endsection
+
 
