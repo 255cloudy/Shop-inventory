@@ -27,7 +27,11 @@
                                     {{ $product->price->sale_price}}
                                 </td>
                                 <td>
-                                    {{$product->stock->qty}}
+                                    @if($product->stock->qty==null)
+                                        N/A
+                                     @else
+                                        {{  $product->stock->qty }}
+                                    @endif
                                 </td>
                                 <td>
                                     <button type="button" id="update-button" data-toggle="modal" data-target="#product-update-modal" onclick="insertEntry(objectLookup({{ $product->id }}))" class="btn btn-block btn-primary btn-sm">add</button>
