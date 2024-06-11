@@ -35,6 +35,7 @@ class SaleController extends Controller
     function filtered_sales(SalesFileterdRequest $request){
         $validated = $request->validated();
         $sales = DB::table("sales")
+            ->where("qty", ">", 0)
             ->whereBetween("updated_at", [$validated["from"], $validated["to"]])
             ->get();
         return view("all_sales", ["sales"=> $sales, "from"=>$validated["from"], "to"=>$validated["to"]]);
