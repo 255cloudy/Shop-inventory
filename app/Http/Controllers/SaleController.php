@@ -41,7 +41,6 @@ class SaleController extends Controller
             ->whereBetween("created_at", [
                 $validated["from"], $validated["to"]])
             ->get();
-            dd($sales);
         return view("all_sales", ["sales"=> $sales, "from"=>$validated["from"], "to"=>$validated["to"]]);
     }
     protected function  update_stock($entries){
