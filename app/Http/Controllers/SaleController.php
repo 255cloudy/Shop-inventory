@@ -24,6 +24,7 @@ class SaleController extends Controller
         $today = Carbon::now();
         $sales_up = sale::where("created_at", ">=",  $today->toDateString())
             ->where("created_at", "<",  $today->addDay(1)->toDateString())
+            ->where("qty", ">", 0)
             ->orderBy("updated_at", "asc")
             ->get();
         return view('all_sales', ["sales"=> $sales_up,

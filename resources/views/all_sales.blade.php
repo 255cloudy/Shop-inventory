@@ -8,7 +8,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <form action="/report/sales/date" id="filter-form-date" method="POST">
+                        <form action="sales/filtered" id="filter-form-date" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-4">
