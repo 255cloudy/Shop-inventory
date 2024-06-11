@@ -24,7 +24,8 @@ class SalesFileterdRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "from" => "required|date",
+            "to" => "required|date"
         ];
     }
 }
