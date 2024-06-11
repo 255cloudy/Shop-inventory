@@ -37,8 +37,7 @@ class SaleController extends Controller
         $validated = $request->validated();
         $full_from = $validated["from"]." "."24:00:00";
         $full_to = $validated["to"]." "."24:00:00";
-        $sales = DB::table("sales")
-            ->where("qty", ">", 0)
+        $sales = sale::where("qty", ">", 0)
             ->whereBetween("created_at", [
                  $full_from, $full_to])
             ->get();
