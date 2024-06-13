@@ -16,7 +16,8 @@ class StockController extends Controller
     function update(UpdateStockRequest $request, stock $id){
         $validated = $request->validated();
         $id->update([
-            "qty"=> (int)$validated["qty"]
+            "qty"=> (int)$validated["qty"],
+            "retail_price" => (double)$validated["bp"]
         ]);
         return redirect()->action([StockController::class, "index"]);
     }

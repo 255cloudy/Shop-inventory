@@ -26,6 +26,7 @@ class UpdateStockRequest extends FormRequest
     {
         return [
             "qty" => "required|integer",
+            "bp" => "required"
         ];
     }
 }

@@ -21,6 +21,13 @@
                                 <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label for="bp">Buy Price</label>
+                                <input type="number" value="{{ old("bp") }}" name="bp" class="form-control @error("bp", "update") invalid-update is-invalid @enderror " id="bp" placeholder=1>
+                                @error('bp', "update")
+                                <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                         <!-- /.card-body -->
 
@@ -143,6 +150,7 @@
             let title = "Update Stock For: " + getProductName(id);
             $("#update_modal_title").text(title);
             $("#qty").attr("value", product.qty);
+            $("#bp").attr("value", product.retail_price);
         }
         let table = $("#example1").DataTable({
             "responsive": true, "lengthChange": true, "pageLength":5, "autoWidth": false,"ordering": true,
