@@ -16,4 +16,8 @@ yarn-error.log
 /.vscode
 pombe-management.md
 database/database.sqlite
+<<<<<<< HEAD
 /vendor
+=======
+vendor/
+>>>>>>> e15c947 (dont know)
