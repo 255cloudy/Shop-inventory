@@ -231,6 +231,7 @@
 {{--                            </li>--}}
 {{--                        </ul>--}}
                     </li>
+                    {{ if(Auth.user().su }}
                     <li class="nav-item">
                         <a href="{{ route('all-stock') }}" class="nav-link
                         @active(Route::current()->uri, 'stock')
@@ -263,6 +264,7 @@
                         {{--                            </li>--}}
                         {{--                        </ul>--}}
                     </li>
+                    {{endif}}
                     <li class="nav-item">
                         <a href="{{ route('all-prices') }}" class="nav-link
                         @active(Route::current()->uri, 'price')
