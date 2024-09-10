@@ -31,12 +31,7 @@ class UserController extends Controller
         $user = new User;
         $user->name = $validated['name'];
         $user->password = Hash::make($validated['password']);
-        if($validated['su'] === 'on'){
-            $user->su = true;
-        }
-        else {
-            $user->su = false;
-        }
+        $user->su = false;
         $user->save();
         return redirect()->action([UserController::class, "index"]);
     }
