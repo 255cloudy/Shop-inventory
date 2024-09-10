@@ -111,18 +111,19 @@
 {{--                            </li>--}}
 {{--                        </ul>--}}
                     </li>
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('all-users') }}" class="nav-link--}}
-{{--                         @active(Route::current()->uri, 'user')--}}
-{{--                            active--}}
-{{--                         @endactive--}}
-{{--                    ">--}}
-{{--                            <i class="nav-icon fas fa-users"></i>--}}
-{{--                            <p>--}}
-{{--                                Users--}}
-{{--                            </p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    {{if(Auth.user().su}}
+                    <li class="nav-item">
+                        <a href="{{ route('all-users') }}" class="nav-link
+                         @active(Route::current()->uri, 'user')
+                            active--}}
+                         @endactive--}}
+                    ">
+                         <i class="nav-icon fas fa-users"></i>
+                            <p>
+                               Users
+                           </p>                 </a>
+                    </li>
+                    {{ endif}}
                     <li class="nav-item">
                         <a href="{{ route('all-distributers') }}" class="nav-link
                         @active(Route::current()->uri, 'distributer')
