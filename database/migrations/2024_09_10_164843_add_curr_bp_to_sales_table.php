@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('sales', function (Blueprint $table) {
             $table->float(("curr_bp"));
-            $table->flaot("profit");
+            $table->float("profit");
             //
         });
     }
