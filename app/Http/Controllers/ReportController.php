@@ -31,7 +31,6 @@ class ReportController extends Controller
             $query = DB::table("sales")
                             ->where("product_id", $product->id)
                             ->where('qty', '>', 0)
-                            ->where()
                             ->whereYear("updated_at", Carbon::now()->year);
             $total_sales = $query->sum("total");
             $pcs = $query->count();
