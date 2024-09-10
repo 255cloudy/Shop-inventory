@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -9,8 +9,8 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
-            <!-- Sidebar user panel (optional) -->
+            
+            Sidebar user panel (optional)
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
@@ -225,4 +225,4 @@
         </div>
         <!-- /.sidebar -->
     </aside>
-</div>
+</div> -->
