@@ -44,7 +44,6 @@
                 </div>
             </div>
         </div>
-        {{--    add a new element--}}
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -59,7 +58,7 @@
                                 <th>name</th>
                                 <th>Super User</th>
                                 <th>Updated</th>
-{{--                                <th>actions</th>--}}
+                                <th>actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -77,9 +76,9 @@
                                             echo $date->tz("EAT")->toDayDateTimeString()
                                         @endphp
                                     </td>
-{{--                                    <td>--}}
-{{--                                        <button type="button" id="update-button" data-toggle="modal" data-target="#product-update-modal" onclick="updateProduct(objectLookup({{ $price->id }}),{{$price->product->id}})" class="btn btn-block btn-primary btn-sm">Update</button>--}}
-{{--                                        --}}{{--                                    <button type="button" data-toggle="modal" data-target="#product-delete-modal" onclick="deleteProduct({{Js::from($order)}})" class="btn btn-block btn-danger btn-xs">Delete</button>--}}
+                                   <td>
+                                        <button type="button" id="update-button" data-toggle="modal" data-target="#product-update-modal" onclick="updateProduct(objectLookup({{ $user->id }}),{{$price->product->id}})" class="btn btn-block btn-primary btn-sm">Update</button>--}}
+{{--                                        }}{{<button type="button" data-toggle="modal" data-target="#product-delete-modal" onclick="deleteProduct({{Js::from($order)}})" class="btn btn-block btn-danger btn-xs">Delete</button>--}}
 {{--                                    </td>--}}
                                 </tr>
                             @endforeach
