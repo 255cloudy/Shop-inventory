@@ -258,7 +258,7 @@ class ReportController extends Controller
             $bp = DB::table("stocks")
                 ->where("product_id", $product->id)
                 ->first();
-            $bp_total = $pcs * $bp->bp;
+            $bp_total = $pcs * $bp->retail_price;
             $bp_sum += $bp_total;
             $profit =  $sales - $bp_total;
             $profit_total += $profit;
