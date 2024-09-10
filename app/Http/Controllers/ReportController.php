@@ -255,7 +255,7 @@ class ReportController extends Controller
                 ->whereMonth("updated_at", $today->month)
                 ->sum("qty");
             $sales_total += $sales;
-            $bp = DB::table("prices")
+            $bp = DB::table("stocks")
                 ->where("product_id", $product->id)
                 ->first();
             $bp_total = $pcs * $bp->bp;
