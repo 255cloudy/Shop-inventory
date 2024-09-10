@@ -33,7 +33,6 @@ class ReportController extends Controller
                             ->where('qty', '>=', 0)
                             ->whereYear("updated_at", Carbon::now()->year);
             $total_sales = $query->sum("total");
-            dd($total_sales);
             $pcs = $query->count();
             array_push($product_data, [
                 "product"=> $product->name,
