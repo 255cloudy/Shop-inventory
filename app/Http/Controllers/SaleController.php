@@ -62,7 +62,7 @@ class SaleController extends Controller
                 $sale->product_id = $entry["product"];
                 $qty = (int)$entry["qty"];
                 $sale->qty = $qty;
-                $bp = stock::where("product_id", $entry["product"])
+                $bp =(float) stock::where("product_id", $entry["product"])
                 ->first()
                 ->retail_price;
                 $sale->curr_bp =$bp;
