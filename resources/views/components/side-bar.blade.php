@@ -92,7 +92,7 @@
                             </p>
                         </a>
                     </li>
-                    @if(Auth::user().su)
+                    @if(Auth::user().$su)
                     <li class="nav-item">
                         <a href="{{ route('all-users') }}" class="nav-link
                          @active(Route::current()->uri, 'user')
@@ -153,7 +153,7 @@
                             </p>
                         </a>
                     </li>
-                     @if(Auth::user().su) 
+                     @if(Auth::user().$su) 
                     <li class="nav-item">
                         <a href="{{ route('all-stock') }}" class="nav-link
                         @active(Route::current()->uri, 'stock')
