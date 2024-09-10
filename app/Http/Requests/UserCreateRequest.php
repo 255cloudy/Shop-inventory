@@ -14,9 +14,6 @@ class UserCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::user()->su){
-            return  true;
-        }
         return true;
     }
 

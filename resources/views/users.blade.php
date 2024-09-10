@@ -13,7 +13,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="price">Username</label>
-                                    <input type="text" value="{{ old("username") }}"  name="username" class="form-control @error("username") is-invalid invalid-update @enderror" id="username" >
+                                    <input type="text" value="{{ old("username") }}"  name="name" class="form-control @error("username") is-invalid invalid-update @enderror" id="username" >
                                     @error("username")
                                     <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
