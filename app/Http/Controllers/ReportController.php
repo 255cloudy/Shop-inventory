@@ -39,6 +39,7 @@ class ReportController extends Controller
                 "cash" => $total_sales,
                 "pcs" => $pcs
             ]);
+            dd($product_data)
         }
         return view("base_sales", ["product_data" => $product_data,
             "months"=> $this->months,
