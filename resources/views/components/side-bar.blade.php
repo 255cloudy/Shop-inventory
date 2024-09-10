@@ -176,6 +176,7 @@
                             <i class="nav-icon fas fa-money-check"></i>
                             <p>
                                 Prices
+                                FU
                             </p>
                         </a>
                     </li>
