@@ -30,6 +30,7 @@ class ReportController extends Controller
         foreach (product::all() as $product ){
             $total_sales = DB::table("sales")
                             ->where("product_id", $product->id)
+                            ->where("qty", ">", 0)
                             ->whereYear("updated_at", Carbon::now()->year)
                             ->sum("total");
             $pcs = DB::table("sales")
