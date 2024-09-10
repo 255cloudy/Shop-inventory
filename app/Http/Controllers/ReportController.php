@@ -30,7 +30,7 @@ class ReportController extends Controller
         foreach (product::all() as $product ){
             $query = DB::table("sales")
                             ->where("product_id", $product->id)
-                            ->where("qty", ">",0)
+                            ->where("total", ">",0)
                             ->whereYear("updated_at", Carbon::now()->year);
             $total_sales = $query->sum("total");
             $pcs = $query->count();
@@ -40,7 +40,6 @@ class ReportController extends Controller
                 "pcs" => $pcs
             ]);
         }
-        dd($product_data);
         return view("base_sales", ["product_data" => $product_data,
             "months"=> $this->months,
             "days"=> $this->days,
