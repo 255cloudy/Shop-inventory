@@ -8,7 +8,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <form id="product-update-form" method="POST" >
+            <form id="product-update-form" method="POST" action="{{ route('registration') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
