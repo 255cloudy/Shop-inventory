@@ -1,7 +1,5 @@
 @extends('layout.base')
 @section('main-content')
-    @extends('layout.base')
-    @section('main-content')
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -37,7 +35,7 @@
         </div>
     </div>
 </div>
-    @endsection
+@endsection
     @section("extra-css")
         <style>
             #card-header {
@@ -61,42 +59,5 @@
         <script src={{ asset("js/plugins/datatables-buttons/js/buttons.html5.min.js") }}></script>
         <script src={{ asset("js/plugins/datatables-buttons/js/buttons.print.min.js") }}></script>
         <script src={{ asset("js/plugins/datatables-buttons/js/buttons.colVis.min.js") }}></script>
-        <script>
-            let products = @json($products);
-            function getProductName(id){
-                for (let product of products) {
-                    if(product.id === id){
-                        return product.name;
-                    }
-                }
-            }
-            let prices = @json($prices);
-            function  objectLookup(id){
-                for(price of prices){
-                    if(parseInt(price.id) === parseInt(id)){
-                        return price
-                    }
-                }
-            }
-            $(function() {
-                if($(".invalid-update").length>0){
-                    $("#product-update-modal").modal().show();
-                }
-            })
-
-            function updateProduct(product, id){
-                let url = "/price/update/"+product.id;
-                $("#product-update-form").attr("action", url);
-                console.log(product.sale_price);
-                let title = "Update price for: " + getProductName(id);
-                $("#update_modal_title").text(title);
-                $("#price").attr("value", product.sale_price);
-            }
-            let table = $("#example1").DataTable({
-                "responsive": true, "lengthChange": true, "pageLength":5, "autoWidth": false,"ordering": true,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            });
-            table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        </script>
     @endsection
 @endsection
