@@ -17,7 +17,7 @@ class UserCreateRequest extends FormRequest
         if (Auth::user()->su){
             return  true;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -29,8 +29,7 @@ class UserCreateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'password' => 'required',
-            'su' => 'required'
+            'password' => 'required'
         ];
     }
 }
