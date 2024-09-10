@@ -28,15 +28,12 @@ class ReportController extends Controller
     public function base_sales(){
         $product_data = [];
         foreach (product::all() as $product ){
-            $total_sales = DB::table("sales")
+            $query = DB::table("sales")
                             ->where("product_id", $product->id)
                             ->where("qty", ">", 0)
-                            ->whereYear("updated_at", Carbon::now()->year)
-                            ->sum("total");
-            $pcs = DB::table("sales")
-                ->where("product_id", $product->id)
-                ->whereYear("updated_at", Carbon::now()->year)
-                ->count();
+                            ->whereYear("updated_at", Carbon::now()->year);
+            $total_sales = $query->sum("total");
+            $pcs = $query->count();
             array_push($product_data, [
                 "product"=> $product->name,
                 "cash" => $total_sales,

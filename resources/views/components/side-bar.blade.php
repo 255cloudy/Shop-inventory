@@ -180,6 +180,7 @@
                             </p>
                         </a>
                     </li>
+                    @if(Auth::user()->su) 
                     <li class="nav-item">
                         <a href="" class="nav-link
                         @active(Route::current()->uri, 'report')
@@ -217,6 +218,7 @@
 
                             </ul>
                     </li>
+                    @endif
 
                 </ul>
             </nav>
