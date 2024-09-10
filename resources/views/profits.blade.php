@@ -79,8 +79,6 @@
                         <tr>
 
                             <th>Name</th>
-                            <th>Buying Price</th>
-                            <th>Sale Price</th>
                             <th>Profit </th>
 
                         </tr>
@@ -90,12 +88,6 @@
                             <tr>
                                 <td>
                                     {{ $product["product"] }}
-                                </td>
-                                <td>
-                                    {{ $product["bp"] }}
-                                </td>
-                                <td>
-                                    {{ $product["sales"] }}
                                 </td>
                                 <td>
                                     {{$product["profit"]}}

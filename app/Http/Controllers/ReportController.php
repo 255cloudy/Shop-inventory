@@ -246,26 +246,18 @@ class ReportController extends Controller
         $bp_sum = 0;
         $today = Carbon::today();
         foreach (product::all() as $product){
-            $sales = DB::table("sales")
+            $profit = DB::table("sales")
                         ->where("product_id", $product->id)
+                        ->where("qty", ">",0)
                         ->whereMonth("updated_at", $today->month)
-                        ->sum("total");
-            $pcs = DB::table("sales")
-                ->where("product_id", $product->id)
-                ->whereMonth("updated_at", $today->month)
-                ->sum("qty");
-            $sales_total += $sales;
-            $bp = DB::table("stocks")
-                ->where("product_id", $product->id)
-                ->first();
-            $bp_total = $pcs * $bp->retail_price;
-            $bp_sum += $bp_total;
-            $profit =  $sales - $bp_total;
+                        ->sum("profit");
+            // $pcs = DB::table("sales")
+            //     ->where("product_id", $product->id)
+            //     ->whereMonth("updated_at", $today->month)
+            //     ->sum("qty");
             $profit_total += $profit;
             array_push($product_data, [
                 "product" => $product->name,
-                "sales" => $sales,
-                "bp" => $bp_total,
                 "profit" => $profit
             ]);
         }
