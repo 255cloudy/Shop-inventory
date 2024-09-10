@@ -91,7 +91,7 @@
                             </p>
                         </a>
                     </li>
-                    <!-- {{if(Auth.user().su)}} -->
+                    @if(Auth.user().su)
                     <li class="nav-item">
                         <a href="{{ route('all-users') }}" class="nav-link
                          @active(Route::current()->uri, 'user')
@@ -103,7 +103,7 @@
                                Users
                            </p>                 </a>
                     </li>
-                    <!-- {{ endif}} -->
+                    @endif
                     <li class="nav-item">
                         <a href="{{ route('all-distributers') }}" class="nav-link
                         @active(Route::current()->uri, 'distributer')
@@ -152,7 +152,7 @@
                             </p>
                         </a>
                     </li>
-                    {{ if(Auth.user().su }}
+                     @if(Auth.user().su) 
                     <li class="nav-item">
                         <a href="{{ route('all-stock') }}" class="nav-link
                         @active(Route::current()->uri, 'stock')
@@ -166,7 +166,7 @@
                         </a>
 
                     </li>
-                    {{endif}}
+                    @endif
                     <li class="nav-item">
                         <a href="{{ route('all-prices') }}" class="nav-link
                         @active(Route::current()->uri, 'price')
