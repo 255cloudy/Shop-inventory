@@ -79,6 +79,7 @@
                         <tr>
 
                             <th>Name</th>
+                            <th>Pcs Sold</th>
                             <th>Profit </th>
 
                         </tr>
@@ -88,6 +89,9 @@
                             <tr>
                                 <td>
                                     {{ $product["product"] }}
+                                </td>
+                                <td>
+                                    {{ $product["pcs"] }}
                                 </td>
                                 <td>
                                     {{$product["profit"]}}

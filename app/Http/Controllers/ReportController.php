@@ -246,18 +246,21 @@ class ReportController extends Controller
         $bp_sum = 0;
         $today = Carbon::today();
         foreach (product::all() as $product){
-            $profit = DB::table("sales")
-                        ->where("product_id", $product->id)
-                        ->where("qty", ">",0)
-                        ->whereMonth("updated_at", $today->month)
-                        ->sum("profit");
-            // $pcs = DB::table("sales")
-            //     ->where("product_id", $product->id)
-            //     ->whereMonth("updated_at", $today->month)
-            //     ->sum("qty");
+            $query =DB::table("sales")
+            ->where("product_id", $product->id)
+            ->where("qty", ">",0)
+            ->whereMonth("updated_at", $today->month);
+            $profit = $query->sum("profit");
+            $sales = $query->sum("total");
+            $sales_total += $sales;
+            $pcs = DB::table("sales")
+                ->where("product_id", $product->id)
+                ->whereMonth("updated_at", $today->month)
+                ->sum("qty");
             $profit_total += $profit;
             array_push($product_data, [
                 "product" => $product->name,
+                "pcs" => $pcs,
                 "profit" => $profit
             ]);
         }
@@ -270,7 +273,7 @@ class ReportController extends Controller
             "from" => $today->firstOfMonth(),
             "to" => $today->lastOfMonth(),
             "profit_total" => $profit_total,
-            "bp_total" => $bp_sum,
+            // "bp_total" => $bp_sum,
             "sales_total" => $sales_total,
             "expenses" => $expenses
         ]);
