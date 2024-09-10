@@ -90,26 +90,6 @@
                                 Products
                             </p>
                         </a>
-{{--                        <ul class="nav nav-treeview">--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route("all-products") }}" class="nav-link active">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>All Products</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route("create-product") }}" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>Add Products</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>update product</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
                     </li>
                     <!-- {{if(Auth.user().su)}} -->
                     <li class="nav-item">
@@ -135,26 +115,6 @@
                                 Distributers
                             </p>
                         </a>
-{{--                        <ul class="nav nav-treeview">--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route("all-distributers") }}" class="nav-link active">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>All Distributers</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route("create-distributer") }}" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>Add Distributer</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>update Distributer</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('all-orders') }}" class="nav-link
@@ -167,26 +127,6 @@
                                 Orders
                             </p>
                         </a>
-{{--                        <ul class="nav nav-treeview">--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route("all-orders") }}" class="nav-link active">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>All Orders</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route("create-order") }}" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>Make Order</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>update Order</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('all-expenses') }}" class="nav-link
@@ -211,26 +151,6 @@
                                 Assets
                             </p>
                         </a>
-{{--                        <ul class="nav nav-treeview">--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route("all-assets") }}" class="nav-link active">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>All Assets</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route("create-asset") }}" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>Add Asset</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>update Asset</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
                     </li>
                     {{ if(Auth.user().su }}
                     <li class="nav-item">
@@ -244,26 +164,7 @@
                                 Stock
                             </p>
                         </a>
-                        {{--                        <ul class="nav nav-treeview">--}}
-                        {{--                            <li class="nav-item">--}}
-                        {{--                                <a href="{{ route("all-assets") }}" class="nav-link active">--}}
-                        {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                        {{--                                    <p>All Assets</p>--}}
-                        {{--                                </a>--}}
-                        {{--                            </li>--}}
-                        {{--                            <li class="nav-item">--}}
-                        {{--                                <a href="{{ route("create-asset") }}" class="nav-link">--}}
-                        {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                        {{--                                    <p>Add Asset</p>--}}
-                        {{--                                </a>--}}
-                        {{--                            </li>--}}
-                        {{--                            <li class="nav-item">--}}
-                        {{--                                <a href="" class="nav-link">--}}
-                        {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                        {{--                                    <p>update Asset</p>--}}
-                        {{--                                </a>--}}
-                        {{--                            </li>--}}
-                        {{--                        </ul>--}}
+
                     </li>
                     {{endif}}
                     <li class="nav-item">
@@ -277,26 +178,6 @@
                                 Prices
                             </p>
                         </a>
-                        {{--                        <ul class="nav nav-treeview">--}}
-                        {{--                            <li class="nav-item">--}}
-                        {{--                                <a href="{{ route("all-assets") }}" class="nav-link active">--}}
-                        {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                        {{--                                    <p>All Assets</p>--}}
-                        {{--                                </a>--}}
-                        {{--                            </li>--}}
-                        {{--                            <li class="nav-item">--}}
-                        {{--                                <a href="{{ route("create-asset") }}" class="nav-link">--}}
-                        {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                        {{--                                    <p>Add Asset</p>--}}
-                        {{--                                </a>--}}
-                        {{--                            </li>--}}
-                        {{--                            <li class="nav-item">--}}
-                        {{--                                <a href="" class="nav-link">--}}
-                        {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                        {{--                                    <p>update Asset</p>--}}
-                        {{--                                </a>--}}
-                        {{--                            </li>--}}
-                        {{--                        </ul>--}}
                     </li>
                     <li class="nav-item">
                         <a href="" class="nav-link
