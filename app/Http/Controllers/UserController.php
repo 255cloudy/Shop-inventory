@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Models\User;
+use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class UserController extends Controller
 {
     function index(){
         $users = User::all();
-        return view('users', ["users" => $users]);
+        return view('users', ["users" => $users, 'products'=>product::all()]);
     }
     function create(Request $request){
        return view('create-user');
