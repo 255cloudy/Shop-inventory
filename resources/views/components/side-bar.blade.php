@@ -115,8 +115,8 @@
                     <li class="nav-item">
                         <a href="{{ route('all-users') }}" class="nav-link
                          @active(Route::current()->uri, 'user')
-                            active--}}
-                         @endactive--}}
+                            active
+                         @endactive}}
                     ">
                          <i class="nav-icon fas fa-users"></i>
                             <p>
