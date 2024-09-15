@@ -132,7 +132,9 @@
                         <th>name</th>
                         <th>description</th>
                         <th>updated </th>
+                        @if(Auth::user()->su)
                         <th>actions</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -153,10 +155,12 @@
                                     echo $date->tz("EAT")->toDayDateTimeString()
                                 @endphp
                             </td>
+                            @if(Auth::user()->su)
                             <td>
                                 <button type="button" data-toggle="modal" data-target="#product-update-modal" onclick="updateProduct(objectLookup({{ $product->id }}))" class="btn btn-block btn-primary btn-sm">Update</button>
                                 <button type="button" data-toggle="modal" data-target="#product-delete-modal" onclick="deleteProduct(objectLookup({{ $product->id }}))" class="btn btn-block btn-danger btn-xs">Delete</button>
                             </td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>
