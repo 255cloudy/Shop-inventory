@@ -51,7 +51,7 @@
                             <th>Product</th>
                             <th>Sale Price</th>
                             <th>Updated</th>
-                            @if(Auth::user().su)
+                            @if(Auth::user()->su)
                             <th>actions</th>
                             @endif
                         </tr>
