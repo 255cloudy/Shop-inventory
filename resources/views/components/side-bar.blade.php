@@ -117,6 +117,7 @@
                             </p>
                         </a>
                     </li>
+                    @if(Auth::user()->su)
                     <li class="nav-item">
                         <a href="{{ route('all-orders') }}" class="nav-link
                         @active(Route::current()->uri, 'order')
@@ -129,6 +130,7 @@
                             </p>
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a href="{{ route('all-expenses') }}" class="nav-link
                         @active(Route::current()->uri, 'expense')
