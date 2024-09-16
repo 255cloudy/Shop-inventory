@@ -121,6 +121,7 @@
                         </thead>
                         <tbody>
                         @foreach($product_data as $product)
+                            @if($product["pcs" > 0])
                             <tr>
                                 <td>
                                     {{ $product["product"] }}
@@ -132,6 +133,7 @@
                                     {{$product["pcs"]}}
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
