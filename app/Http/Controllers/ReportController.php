@@ -291,26 +291,20 @@ class ReportController extends Controller
         }
         if($from->eq($to)){
             foreach (product::all() as $product){
-                $sales = DB::table("sales")
+                $qry = DB::table("sales")
                     ->where("product_id", $product->id)
-                    -> whereDate("updated_at", $request->validated("from"))
-                    ->sum("total");
+                    -> whereDate("updated_at", $request->validated("from"));
+                $profit = $qry->sum("profit");
+                $sales = $qry->sum("total");
+                $sales_total += $sales;
+                $profit_total += $profit;
                 $pcs = DB::table("sales")
                     ->where("product_id", $product->id)
                     -> whereDate("updated_at", $request->validated("from"))
                     ->count();
-                $sales_total += $sales;
-                $bp = DB::table("prices")
-                    ->where("product_id", $product->id)
-                    ->first();
-                $bp_total = $pcs * $bp->bp;
-                $bp_sum += $bp_total;
-                $profit =  $sales - $bp_total;
-                $profit_total += $profit;
                 array_push($product_data, [
                     "product" => $product->name,
-                    "sales" => $sales,
-                    "bp" => $bp_total,
+                    "pcs" => $pcs,
                     "profit" => $profit
                 ]);
             }
@@ -323,32 +317,24 @@ class ReportController extends Controller
                 "from" => $from->toDateString(),
                 "to" => $to->toDateString(),
                 "profit_total" => $profit_total,
-                "bp_total" => $bp_sum,
+                // "bp_total" => $bp_sum,
                 "sales_total" => $sales_total,
                 "expenses" => $expenses
             ]);
         }
         foreach (product::all() as $product){
-            $sales = DB::table("sales")
-                ->where("product_id", $product->id)
-                -> whereBetween("updated_at", [$request->validated("from"), $request->validated("to")])
-                ->sum("total");
-            $pcs = DB::table("sales")
-                ->where("product_id", $product->id)
-                -> whereBetween("updated_at", [$request->validated("from"), $request->validated("to")])
-                ->count();
+            $qry = DB::table("sales")
+            ->where("product_id", $product->id)
+            -> whereBetween("updated_at", [$request->validated("from"), $request->validated("to")]);
+            $sales = $qry->sum("total");
+            $profit = $qry->sum("profit");
+            $pcs = $qry->count();
             $sales_total += $sales;
-            $bp = DB::table("prices")
-                ->where("product_id", $product->id)
-                ->first();
-            $bp_total = $pcs * $bp->bp;
-            $bp_sum += $bp_total;
-            $profit =  $sales - $bp_total;
             $profit_total += $profit;
             array_push($product_data, [
                 "product" => $product->name,
-                "sales" => $sales,
-                "bp" => $bp_total,
+                "pcs" => $pcs,
+                // "bp" => $bp_total,
                 "profit" => $profit
             ]);
         }
@@ -361,7 +347,7 @@ class ReportController extends Controller
             "from" => $from->toDateString(),
             "to" => $to->toDateString(),
             "profit_total" => $profit_total,
-            "bp_total" => $bp_sum,
+            // "bp_total" => $bp_sum,
             "sales_total" => $sales_total,
             "expenses" => $expenses
         ]);
