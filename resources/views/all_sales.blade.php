@@ -63,7 +63,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header" id="card-header">
-                    <h3>Sales today {{ $today }}</h3>
+                    <h3>Sales  {{ $today }}</h3>
                     <h3 id="stock-total">Total</h3>
                 </div>
                 <!-- /.card-header -->

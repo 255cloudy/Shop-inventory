@@ -28,7 +28,7 @@ class SaleController extends Controller
             ->orderBy("updated_at", "asc")
             ->get();
         return view('all_sales', ["sales"=> $sales_up,
-            "today"=> $today->toDateString(),
+            "today"=> "Date:" . $today->toDateString(),
             "from"=> $today->toDateString(),
             "to" => $today->toDateString()
         ]);
@@ -41,13 +41,14 @@ class SaleController extends Controller
         $sales = sale::where("qty", ">", 0)
             ->whereBetween("created_at", [
                 $validated["from"], $validated["to"]])
+            ->orderBy("updated_at", "asc")
             ->get();
         return view("all_sales", 
         [
             "sales"=> $sales, 
             "from"=>$validated["from"], 
             "to"=>$validated["to"], 
-            "today"=>$today->toDateTimeString()]) ;
+            "today"=> "from:".$validated["from"] . " to:" . $validated["to"]]);
     }
     protected function  update_stock($entries){
         foreach ($entries as  $entry){
