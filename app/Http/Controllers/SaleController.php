@@ -34,6 +34,7 @@ class SaleController extends Controller
         ]);
     }
     function filtered_sales(SalesFileterdRequest $request){
+        $today = Carbon::now();
         $validated = $request->validated();
         $full_from = $validated["from"]." "."24:00:00";
         $full_to = $validated["to"]." "."24:00:00";
@@ -41,7 +42,12 @@ class SaleController extends Controller
             ->whereBetween("created_at", [
                 $validated["from"], $validated["to"]])
             ->get();
-        return view("all_sales", ["sales"=> $sales, "from"=>$validated["from"], "to"=>$validated["to"]]);
+        return view("all_sales", 
+        [
+            "sales"=> $sales, 
+            "from"=>$validated["from"], 
+            "to"=>$validated["to"], 
+            "today"=>$today->toDateTimeString()]) ;
     }
     protected function  update_stock($entries){
         foreach ($entries as  $entry){
@@ -67,7 +73,7 @@ class SaleController extends Controller
                 ->retail_price;
                 $sale->curr_bp =$bp;
                 $sale->total = $qty * $price;
-                $sale->profit = $price - $bp;
+                $sale->profit = ($price - $bp)*$qty;
                 $sale->save();
             }
             $this->update_stock($entries);
