@@ -281,7 +281,7 @@ class ReportController extends Controller
     }
 
     public function filter_profit(ProfitFilterRequest $request){
-        $query = DB::table("sales")
+        $query_aggregates = DB::table("sales")
                     ->select(
                         'product_id',
                         DB::raw('SUM(profit) as profit'),
@@ -291,6 +291,7 @@ class ReportController extends Controller
                     ->whereDate("updated_at", $request->validated("from"))
                     -> groupBy("product_id");
         $data = $query->get();
+        $query = DB::table("sales")->whereDate("updated_at", $request->validated("from"));
         dd($query->sum("total"));
         $product_data = [];
         $sales_total = 0;
