@@ -26,24 +26,23 @@ class ReportController extends Controller
         "sun", "mon", "tue", "wed", "thur", "fri", "sat"
     ];
     public function base_sales(){
-        $product_data = [];
-        foreach (product::all() as $product ){
-            $query = DB::table("sales")
-                            ->where("product_id", $product->id)
-                            ->where("total", ">",0)
-                            ->whereYear("updated_at", Carbon::now()->year);
-            $total_sales = $query->sum("total");
-            $pcs = $query->count();
-            array_push($product_data, [
-                "product"=> $product->name,
-                "cash" => $total_sales,
-                "pcs" => $pcs
-            ]);
-        }
+        $date = Carbon::createFromFormat("Y-m-d", Carbon::today()->toDateString());
+        $from= $date->startOfDay();
+        $to = $date->endOfDay();
+        $product_data = DB::table("sales")
+                ->join("products", "sales.product_id", "=", "products.id")
+                ->select(
+                    'products.name as product',
+                    DB::raw('SUM(sales.total) as total'),
+                    DB::raw('SUM(sales.qty) as pcs')
+                    )
+                ->whereBetween("sales.updated_at", [$from, $to])
+                -> groupBy("sales.product_id", "products.name")->get();
         return view("base_sales", ["product_data" => $product_data,
             "months"=> $this->months,
             "days"=> $this->days,
-            "isQueried"=> "none"
+            "isQueried"=> "none",
+            "today" => $date->toDateString()
         ]);
     }
     private function resolve_days($sales, $day){
@@ -57,55 +56,7 @@ class ReportController extends Controller
             return $compatible_sales_ids;
 
     }
-//    public function filter_sales(FilterSalesRequest $request){
-//        $product_sales = [];
-//        $validated = $request->validated();
-//        $data = [ $validated['day'],  $validated['month'],  $validated['year']];
-//        $all_products = product::all();
-//       foreach ($all_products as $product){
-//           $cash = 0;
-//           $pcs = 0;
-//           $query = DB::table("sales")->where("product_id", $product->id);
-//           if($data[2]!== "any"){
-//               $query->whereYear("updated_at", $data[2]);
-//           }
-//           if($data[1]!== "any"){
-//               $query->whereMonth("updated_at", (int)$data[1]);
-//           }
-//
-//           if($data[0]!== "any"){
-//               $resolve_days = $this->resolve_days($query->get(), (int)$data[0]);
-//               $cash = $query
-//                    ->whereIn("id", $resolve_days)
-//                    ->sum("sale_price");
-//               $pcs = count($resolve_days);
-//           }else {
-//               $cash += $query->sum("sale_price");
-//               $pcs += $query->count();
-//           }
-//           $prod_data = ["product"=>$product->name, "cash"=>$cash, "pcs"=>$pcs];
-//           array_push($product_sales, $prod_data);
-//       }
-//       $query_params = [
-//           "day" => "any",
-//           "month" => "any",
-//           "year" => $data[2]
-//       ];
-//       if($data[0] !== "any"){
-//           $query_params["day"]= $this->days[$data[0]];
-//       }
-//        if($data[1] !== "any"){
-//            $query_params["month"]= $this->months[$data[1]];
-//        }
-//
-//        return view("base_sales", ["product_data" => $product_sales,
-//            "months"=> $this->months,
-//            "days"=> $this->days,
-//            "query" => $query_params,
-//             "isQueried" => "aggregate",
-//            ]
-//        );
-//    }
+//    
     public function filter_sales(FilterSalesRequest $request){
         $product_sales = [];
         $validated = $request->validated();
