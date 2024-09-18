@@ -240,39 +240,29 @@ class ReportController extends Controller
         ]);
     }
     public function profit(Request $request){
-        $product_data = [];
-        $sales_total = 0;
-        $profit_total = 0;
-        $bp_sum = 0;
-        $today = Carbon::today();
-        foreach (product::all() as $product){
-            $query =DB::table("sales")
-            ->where("product_id", $product->id)
-            ->where("qty", ">",0)
-            ->whereMonth("updated_at", $today->month)
-            ->groupBy("product_id");
-            $profit = $query->sum("profit");
-            $sales = $query->sum("total");
-            $sales_total += $sales;
-            $pcs = DB::table("sales")
-                ->where("product_id", $product->id)
-                ->whereMonth("updated_at", $today->month)
-                ->sum("qty");
-            $profit_total += $profit;
-            array_push($product_data, [
-                "product" => $product->name,
-                "pcs" => $pcs,
-                "profit" => $profit
-            ]);
-        }
+        $from = Carbon::today();
+        $to = Carbon::tommorow();
+        $query_totals = DB::table("sales")
+            ->whereBetween("updated_at", [$from, $to]);
+        $sales_total = $query_totals->sum("total");
+        $profit_total = $query_totals->sum("profit");
+        $product_data = DB::table("sales")
+                ->join("products", "sales.product_id", "=", "products.id")
+                ->select(
+                    'products.name as product',
+                    DB::raw('SUM(sales.profit) as profit'),
+                    DB::raw('SUM(sales.qty) as pcs')
+                    )
+                ->whereBetween("sales.updated_at", [$from, $to])
+                -> groupBy("sales.product_id", "products.name")->get();
         $expenses = DB::table("expenses")
-            ->whereMonth("updated_at", $today->month)
+            ->whereBetween("updated_at", [$from, $to])
             ->sum("amount");
         $profit_total -= $expenses;
         return view("profits", [
             "product_data"=> $product_data,
-            "from" => $today->firstOfMonth(),
-            "to" => $today->lastOfMonth(),
+            "from" => $from->toDateString(),
+            "to" => $to->toDateString(),
             "profit_total" => $profit_total,
             // "bp_total" => $bp_sum,
             "sales_total" => $sales_total,
@@ -286,34 +276,6 @@ class ReportController extends Controller
         if($from->gt($to)){
             return back()->withErrors(["dates"=> "from date cant be greater than to date"])->withInput();
         }
-        if($from->eq($to)){
-            $query_totals = DB::table("sales")->whereDate("updated_at", $request->validated("from"));
-            $sales_total = $query_totals->sum("total");
-            $profit_total = $query_totals->sum("profit");
-            $product_data = DB::table("sales")
-                    ->join("products", "sales.product_id", "=", "products.id")
-                    ->select(
-                        'products.name as product',
-                        DB::raw('SUM(sales.profit) as profit'),
-                        DB::raw('SUM(sales.qty) as pcs')
-                        )
-                    ->whereDate("sales.updated_at", $request->validated("from"))
-                    -> groupBy("sales.product_id", "products.name")->get();
-            $expenses = DB::table("expenses")
-                ->whereDate("updated_at", $request->validated("from"))
-                ->sum("amount");
-            $profit_total -= $expenses;
-            return view("profits", [
-                "product_data"=> $product_data,
-                "from" => $from->toDateString(),
-                "to" => $to->toDateString(),
-                "profit_total" => $profit_total,
-                // "bp_total" => $bp_sum,
-                "sales_total" => $sales_total,
-                "expenses" => $expenses
-            ]);
-        }
-
         // do the between two dates
         $query_totals = DB::table("sales")
             ->whereBetween("updated_at", [$from, $to]);
