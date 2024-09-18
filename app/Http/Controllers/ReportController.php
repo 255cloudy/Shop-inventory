@@ -316,7 +316,7 @@ class ReportController extends Controller
 
         // do the between two dates
         $query_totals = DB::table("sales")
-            ->whereDateBetwen("updated_at", [$request->validated("from"), $request->validated("to")]);
+            ->whereDateBetween("updated_at", [$request->validated("from"), $request->validated("to")]);
             $sales_total = $query_totals->sum("total");
             $profit_total = $query_totals->sum("profit");
             $product_data = DB::table("sales")
