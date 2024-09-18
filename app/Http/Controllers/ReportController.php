@@ -293,7 +293,7 @@ class ReportController extends Controller
                     -> groupBy("sales.product_id", "products.name");
         // $data = $query->get();
         $query = DB::table("sales")->whereDate("updated_at", $request->validated("from"));
-        dd($query_aggregates->get());
+        dd($query->sum("profit"));
         $product_data = [];
         $sales_total = 0;
         $profit_total = 0;
