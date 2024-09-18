@@ -184,7 +184,7 @@ class ReportController extends Controller
         return view("base_sales", ["product_data" => $product_data,
             "months"=> $this->months,
             "days"=> $this->days,
-            "query"=> $date,
+            "query"=> $from->toDateString(),
             "isQueried"=> "date"
         ]);
     }
