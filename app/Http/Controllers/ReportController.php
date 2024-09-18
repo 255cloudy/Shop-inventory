@@ -170,19 +170,18 @@ class ReportController extends Controller
         );
     }
     public function filter_sales_date(FilterSalesDateRequest $request){
-        $product_data = [];
-        $date = $request->validated()["date"];
-        foreach (product::all() as $product ){
-            $total_sales = DB::table("sales")
-                ->where("product_id", $product->id)
-                ->whereDate("updated_at", $date)
-                ->sum("sale_price");
-            $pcs = DB::table("sales")
-                ->where("product_id", $product->id)
-                ->whereDate("updated_at", $date)
-                ->count();
-            array_push($product_data, ["product"=> $product->name, "cash"=>$total_sales, "pcs"=>$pcs]);
-        }
+        $date = Carbon::createFromFormat("Y-m-d", $request->validated["date"]);
+        $from= $date->startOfDay();
+        $to = $date->endOfDay();
+        $product_data = DB::table("sales")
+                ->join("products", "sales.product_id", "=", "products.id")
+                ->select(
+                    'products.name as product',
+                    DB::raw('SUM(sales.total) as total'),
+                    DB::raw('SUM(sales.qty) as pcs')
+                    )
+                ->whereBetween("sales.updated_at", [$from, $to])
+                -> groupBy("sales.product_id", "products.name")->get();
         return view("base_sales", ["product_data" => $product_data,
             "months"=> $this->months,
             "days"=> $this->days,
