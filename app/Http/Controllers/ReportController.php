@@ -281,8 +281,8 @@ class ReportController extends Controller
     }
 
     public function filter_profit(ProfitFilterRequest $request){
-        $from = new Carbon($request->validated("from"));
-        $to = new  Carbon($request->validated("to"));
+        $from = Carbon::createFromFormat('Y-m-d', $request->validated("from"))->startOfDay();
+        $to =   Carbon::createFromFormat('Y-m-d', $request->validated("to"))->endOfDay();
         if($from->gt($to)){
             return back()->withErrors(["dates"=> "from date cant be greater than to date"])->withInput();
         }
@@ -316,7 +316,7 @@ class ReportController extends Controller
 
         // do the between two dates
         $query_totals = DB::table("sales")
-            ->whereBetween("updated_at", [$request->validated("from"), $request->validated("to")]);
+            ->whereBetween("updated_at", [$from, $to]);
             $sales_total = $query_totals->sum("total");
             $profit_total = $query_totals->sum("profit");
             $product_data = DB::table("sales")
@@ -326,10 +326,10 @@ class ReportController extends Controller
                         DB::raw('SUM(sales.profit) as profit'),
                         DB::raw('SUM(sales.qty) as pcs')
                         )
-                    ->whereBetween("sales.updated_at", [$request->validated("from"), $request->validated("to")])
+                    ->whereBetween("sales.updated_at", [$from, $to])
                     -> groupBy("sales.product_id", "products.name")->get();
             $expenses = DB::table("expenses")
-                ->whereBetween("updated_at", [$request->validated("from"), $request->validated("to")])
+                ->whereBetween("updated_at", [$from, $to])
                 ->sum("amount");
             $profit_total -= $expenses;
             return view("profits", [
