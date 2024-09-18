@@ -133,10 +133,10 @@
         form.attr('action', "/report/sales");
         $(function () {
             $('#reservationdatefrom').datetimepicker({
-                format: 'Y-m-d'
+                format: 'Y-M-D'
             });
             $('#reservationdateto').datetimepicker({
-                format: 'Y-m-d'
+                format: 'Y-M-D'
             });
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": true, "pageLength":5, "autoWidth": false,"ordering": true,
