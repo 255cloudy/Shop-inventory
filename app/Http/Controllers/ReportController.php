@@ -241,7 +241,7 @@ class ReportController extends Controller
     }
     public function profit(Request $request){
         $from = Carbon::today();
-        $to = Carbon::tommorow();
+        $to = Carbon::tomorrow();
         $query_totals = DB::table("sales")
             ->whereBetween("updated_at", [$from, $to]);
         $sales_total = $query_totals->sum("total");
