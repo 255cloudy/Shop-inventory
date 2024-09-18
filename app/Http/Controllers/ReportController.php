@@ -289,8 +289,8 @@ class ReportController extends Controller
                         DB::raw('SUM(sales.total) as total'),
                         DB::raw('SUM(sales.qty) as pcs')
                         )
-                    ->whereDate("updated_at", $request->validated("from"))
-                    -> groupBy("product_id");
+                    ->whereDate("sales.updated_at", $request->validated("from"))
+                    -> groupBy("sales.product_id", "products.name");
         // $data = $query->get();
         $query = DB::table("sales")->whereDate("updated_at", $request->validated("from"));
         dd($query_aggregates->get());
