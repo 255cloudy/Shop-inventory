@@ -2,7 +2,8 @@
 @extends('layout.base')
 @section('main-content')
     <div class="row">
-        <div class="col-lg-6">
+        
+        <!-- <div class="col-lg-6">
             <div class="card card-success">
                 <div class="card-header">
                     <h3 class="card-title">Filter Data Aggregates</h3>
@@ -55,9 +56,9 @@
                         </form>
                     </div>
                 </div>
-                <!-- /.card-body -->
             </div>
-        </div>
+        </div> -->
+        
         <div class="col-lg-6">
             <div class="card card-success">
                 <div class="card-header">
