@@ -291,7 +291,7 @@ class ReportController extends Controller
                     ->whereDate("updated_at", $request->validated("from"))
                     -> groupBy("product_id");
         $data = $query->get();
-        dd($data);
+        dd($query->sum("total"));
         $product_data = [];
         $sales_total = 0;
         $profit_total = 0;
