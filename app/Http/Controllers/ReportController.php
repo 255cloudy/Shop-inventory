@@ -170,7 +170,7 @@ class ReportController extends Controller
         );
     }
     public function filter_sales_date(FilterSalesDateRequest $request){
-        $date = Carbon::createFromFormat("Y-m-d", $request->validated["date"]);
+        $date = Carbon::createFromFormat("Y-m-d", $request->validated("date"));
         $from= $date->startOfDay();
         $to = $date->endOfDay();
         $product_data = DB::table("sales")
