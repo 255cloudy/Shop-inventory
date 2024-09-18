@@ -249,7 +249,8 @@ class ReportController extends Controller
             $query =DB::table("sales")
             ->where("product_id", $product->id)
             ->where("qty", ">",0)
-            ->whereMonth("updated_at", $today->month);
+            ->whereMonth("updated_at", $today->month)
+            ->groupBy("product_id");
             $profit = $query->sum("profit");
             $sales = $query->sum("total");
             $sales_total += $sales;
@@ -280,6 +281,17 @@ class ReportController extends Controller
     }
 
     public function filter_profit(ProfitFilterRequest $request){
+        $query = DB::table("sales")
+                    ->select(
+                        'product_id',
+                        DB::raw('SUM(profit) as profit'),
+                        DB::raw('SUM(total) as total'),
+                        DB::raw('SUM(qty) as pcs')
+                        )
+                    ->whereDate("updated_at", $request->validated("from"))
+                    -> groupBy("product_id");
+        $data = $query->get();
+        dd($data);
         $product_data = [];
         $sales_total = 0;
         $profit_total = 0;
@@ -293,7 +305,8 @@ class ReportController extends Controller
             foreach (product::all() as $product){
                 $qry = DB::table("sales")
                     ->where("product_id", $product->id)
-                    -> whereDate("updated_at", $request->validated("from"));
+                    -> whereDate("updated_at", $request->validated("from"))
+                    -> groupBy("product_id");
                 $profit = $qry->sum("profit");
                 $sales = $qry->sum("total");
                 $sales_total += $sales;
