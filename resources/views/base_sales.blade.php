@@ -168,7 +168,7 @@
                 form.attr('action', "/report/sales");
                 $(function () {
                     $('#reservationdate').datetimepicker({
-                        format: 'L'
+                        format: "Y-M-D"
                     });
                     $("#example1").DataTable({
                         "responsive": true, "lengthChange": true, "pageLength":5, "autoWidth": false,"ordering": true,
