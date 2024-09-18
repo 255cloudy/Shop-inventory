@@ -172,7 +172,7 @@ class ReportController extends Controller
     public function filter_sales_date(FilterSalesDateRequest $request){
         $date = Carbon::createFromFormat("Y-m-d", $request->validated("date"))->startOfDay();
         $from= $date;
-        $to = $date->endOfDay();
+        $to = Carbon::createFromFormat("Y-m-d", $request->validated("date"))->endOfDay();
         dd($from, $to);
         $product_data = DB::table("sales")
                 ->join("products", "sales.product_id", "=", "products.id")
