@@ -173,6 +173,7 @@ class ReportController extends Controller
         $date = Carbon::createFromFormat("Y-m-d", $request->validated("date"));
         $from= $date->startOfDay();
         $to = $date->endOfDay();
+        dd($from, $to);
         $product_data = DB::table("sales")
                 ->join("products", "sales.product_id", "=", "products.id")
                 ->select(
