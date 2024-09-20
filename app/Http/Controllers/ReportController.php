@@ -27,7 +27,7 @@ class ReportController extends Controller
     ];
     public function base_sales(){
         $from= Carbon::today();
-        $to = $date->endOfDay();
+        $to = $from->endOfDay();
         $product_data = DB::table("sales")
                 ->join("products", "sales.product_id", "=", "products.id")
                 ->select(
