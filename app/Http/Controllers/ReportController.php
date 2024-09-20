@@ -188,9 +188,8 @@ class ReportController extends Controller
         ]);
     }
     public function profit(Request $request){
-        $date = Carbon::createFromFormat("Y-m-d", Carbon::today()->toDateString());
-        $from= $date->startOfDay();
-        $to = $date->endOfDay();
+        $from= Carbon::today();
+        $to = $from->endOfDay();
         $query_totals = DB::table("sales")
             ->whereBetween("updated_at", [$from, $to]);
         $sales_total = $query_totals->sum("total");
