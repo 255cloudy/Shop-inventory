@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class SaleController extends Controller
 {
     function make_sale(){
-        dd(products);
+        dd(product::all());
         return view('sales', [
             "products"=> product::all(),
             "prices" => price::all(),
