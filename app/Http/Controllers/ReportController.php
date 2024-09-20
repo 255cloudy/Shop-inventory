@@ -41,7 +41,7 @@ class ReportController extends Controller
             "months"=> $this->months,
             "days"=> $this->days,
             "isQueried"=> "none",
-            "today" => $date->toDateString()
+            "today" => $from->toDateString()
         ]);
     }
     private function resolve_days($sales, $day){
