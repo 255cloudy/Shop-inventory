@@ -26,8 +26,7 @@ class ReportController extends Controller
         "sun", "mon", "tue", "wed", "thur", "fri", "sat"
     ];
     public function base_sales(){
-        $date = Carbon::createFromFormat("Y-m-d", Carbon::today()->toDateString());
-        $from= $date->startOfDay();
+        $from= Carbon::today();
         $to = $date->endOfDay();
         $product_data = DB::table("sales")
                 ->join("products", "sales.product_id", "=", "products.id")
