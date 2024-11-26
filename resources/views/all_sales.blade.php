@@ -105,7 +105,7 @@
                                 </td>
                                 @if(Auth::user()->su)
                                     <td>
-                                        <button type="button"   onclick="deleteSale( "{{$sale->id}}" )" class="btn btn-block btn-danger btn-sm">reverse</button>
+                                        <button type="button"   onclick="deleteSale({{$sale->id}})" class="btn btn-block btn-danger btn-sm">reverse</button>
                                     </td>
                                 @endif
                             </tr>
@@ -169,7 +169,8 @@
         }
         );
         function deleteSale(url){
-            let where = `/sales/reverse/${url}`;
+            let strurl =url.toString();
+            let where = `/sales/reverse/${strurl}`;
             window.location.replace(where);
         }
         function updateProduct(product){
