@@ -105,7 +105,7 @@
                                 </td>
                                 @if(Auth::user()->su)
                                     <td>
-                                        <button type="button"  data-target="#product-update-modal" onclick="deleteSale("{{ route("reverse_sale", ["sale" => $sale->id ]) }}")" class="btn btn-block btn-danger btn-sm">reverse</button>
+                                        <button type="button"   onclick="deleteSale( "{{$sale->id}}"))" class="btn btn-block btn-danger btn-sm">reverse</button>
                                     </td>
                                 @endif
                             </tr>
@@ -169,7 +169,8 @@
         }
         );
         function deleteSale(url){
-            window.location.href = url
+            let url = `/sales/reverse/${url}`;
+            window.location.replace(url);
         }
         function updateProduct(product){
             let url = "/stock/update/"+product.id;
