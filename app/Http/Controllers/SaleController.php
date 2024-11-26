@@ -36,11 +36,11 @@ class SaleController extends Controller
     function filtered_sales(SalesFileterdRequest $request){
         $today = Carbon::now();
         $validated = $request->validated();
-        $full_from = $validated["from"]." "."24:00:00";
-        $full_to = $validated["to"]." "."24:00:00";
+        $from = Carbon::createFromFormat("Y-m-d", $request->validated("from"))->startOfDay();
+        $to = Carbon::createFromFormat("Y-m-d", $request->validated("to"))->endOfDay();
         $sales = sale::where("qty", ">", 0)
             ->whereBetween("created_at", [
-                $validated["from"], $validated["to"]])
+                $from, $to])
             ->orderBy("updated_at", "asc")
             ->get();
         return view("all_sales", 
