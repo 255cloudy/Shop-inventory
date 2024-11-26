@@ -21,8 +21,9 @@ class SaleController extends Controller
         ]);
     }
     function all_sales(){
-        $today = Carbon::now();
-        $sales_up = sale::where("created_at", "=",  $today->toDateString())
+        $todayStart = Carbon::now()->startOfDay()->toDateString();
+        $todayEnd = Carbon::now()->endOfDay()->toDateString();
+        $sales_up = sale::whereBetween("created_at",  [$todayStart, $todayEnd])
             ->where("qty", ">", 0)
             ->orderBy("updated_at", "asc")
             ->get();
