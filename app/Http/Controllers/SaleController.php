@@ -90,7 +90,7 @@ class SaleController extends Controller
         // reverse the stock
         $stock = stock::where("product_id", $sale->product_id)->first();
         $stock->update(["qty"=>$stock->qty + $qty]);
-        $id->delete();
+        $sale->delete();
         return redirect()->action([SaleController::class, "all_sales"]);
     }
 }
