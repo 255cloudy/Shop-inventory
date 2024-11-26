@@ -28,7 +28,7 @@ class SaleController extends Controller
             ->orderBy("updated_at", "asc")
             ->get();
         return view('all_sales', ["sales"=> $sales_up,
-            "today"=> "Date:" . $todayStart->toDateString(),
+            "today"=> "Date:" . Carbon::now()->toDateString(),
             "from"=> Carbon::now()->toDateString(),
             "to" => Carbon::now()->toDateString()
         ]);
