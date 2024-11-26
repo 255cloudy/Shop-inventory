@@ -21,6 +21,7 @@ class SaleController extends Controller
         ]);
     }
     function all_sales(){
+        dd("we are here");
         $today = Carbon::now();
         $sales_up = sale::where("created_at", ">=",  $today->toDateString())
             ->where("created_at", "<",  $today->addDay(1)->toDateString())
