@@ -82,7 +82,16 @@ class SaleController extends Controller
         return redirect()->action([SaleController::class, "make_sale"]);
 
     }
-    function delete(){
+    function delete(Sale $id){
+        $id->delete();
         return view('sales');
+    }
+    function reverse_sale(Sale $sale) {
+        $qty = $sale->qty;
+        // reverse the stock
+        $stock = stock::where("product_id", $sale->product_id)->first();
+        $stock->update(["qty"=>$stock->qty + $qty]);
+        $id->delete();
+        return redirect()->action([SaleController::class, "all_sales"]);
     }
 }

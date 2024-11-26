@@ -44,6 +44,7 @@ Route::post('sales/', [\App\Http\Controllers\SaleController::class, 'store'])->n
 Route::post('sales/filtered', [\App\Http\Controllers\SaleController::class, 'filtered_sales'])->name("filter_sale")->middleware('auth');
 Route::post('sales/delete/{id}', [\App\Http\Controllers\SaleController::class, 'delete'])->name("delete-sale")->middleware('auth');
 Route::post('sales/update/{id}', [\App\Http\Controllers\SaleController::class, 'update'])->name("update-sale")->middleware('auth');
+Route::get('sales/reverse/{sale}', [\App\Http\Controllers\SaleController::class, 'reverse_sale'])->name("reverse_sale")->middleware('auth');
 
 Route::get('order/all', [\App\Http\Controllers\OrderController::class, 'index'])->name("all-orders")->middleware('auth');
 Route::get('order/view/{id}', [\App\Http\Controllers\OrderController::class, 'view'])->name("create-order")->middleware('auth');

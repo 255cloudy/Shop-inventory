@@ -77,6 +77,9 @@
                             <th>Price</th>
                             <th>Total</th>
                             <th>updated </th>
+                            @if(Auth::user()->su)
+                                <th>actions</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -100,6 +103,11 @@
                                         echo $date->tz("EAT")->toDayDateTimeString()
                                     @endphp
                                 </td>
+                                @if(Auth::user()->su)
+                                    <td>
+                                        <button type="button"  data-target="#product-update-modal" onclick="deleteSale("{{ route("reverse_sale", ["sale" => $sale->id ]) }}")" class="btn btn-block btn-danger btn-sm">reverse</button>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
@@ -160,6 +168,9 @@
                 });
         }
         );
+        function deleteSale(url){
+            window.location.href = url
+        }
         function updateProduct(product){
             let url = "/stock/update/"+product.id;
             $("#product-update-form").attr("action", url);
