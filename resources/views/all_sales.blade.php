@@ -169,8 +169,8 @@
         }
         );
         function deleteSale(url){
-            let url = `/sales/reverse/${url}`;
-            window.location.replace(url);
+            let where = `/sales/reverse/${url}`;
+            window.location.replace(where);
         }
         function updateProduct(product){
             let url = "/stock/update/"+product.id;
