@@ -105,7 +105,7 @@
                                 </td>
                                 @if(Auth::user()->su)
                                     <td>
-                                        <button type="button"   onclick="deleteSale( "{{$sale->id}}"))" class="btn btn-block btn-danger btn-sm">reverse</button>
+                                        <button type="button"   onclick="deleteSale( "{{$sale->id}}" )" class="btn btn-block btn-danger btn-sm">reverse</button>
                                     </td>
                                 @endif
                             </tr>
