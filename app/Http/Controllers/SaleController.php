@@ -22,15 +22,14 @@ class SaleController extends Controller
     }
     function all_sales(){
         $today = Carbon::now();
-        $sales_up = sale::where("created_at", ">=",  $today->toDateString())
-            ->where("created_at", "<",  $today->addDay(1)->toDateString())
+        $sales_up = sale::where("created_at", "=",  $today->toDateString())
             ->where("qty", ">", 0)
             ->orderBy("updated_at", "asc")
             ->get();
         return view('all_sales', ["sales"=> $sales_up,
             "today"=> "Date:" . $today->toDateString(),
-            "from"=> $today->toDateString(),
-            "to" => $today->toDateString()
+            "from"=> Carbon::now()->toDateString(),
+            "to" => $Carbon::now()->toDateString()
         ]);
     }
     function filtered_sales(SalesFileterdRequest $request){
