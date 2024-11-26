@@ -29,7 +29,7 @@ class SaleController extends Controller
         return view('all_sales', ["sales"=> $sales_up,
             "today"=> "Date:" . $today->toDateString(),
             "from"=> Carbon::now()->toDateString(),
-            "to" => $Carbon::now()->toDateString()
+            "to" => Carbon::now()->toDateString()
         ]);
     }
     function filtered_sales(SalesFileterdRequest $request){
