@@ -75,6 +75,7 @@ class SaleController extends Controller
                 $sale->curr_bp =$bp;
                 $sale->total = $qty * $price;
                 $sale->profit = ($price - $bp)*$qty;
+                dd($sale);
                 $sale->save();
             }
             $this->update_stock($entries);
