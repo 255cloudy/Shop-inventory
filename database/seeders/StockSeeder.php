@@ -23,20 +23,20 @@ class ZeroInventorySeeder extends Seeder
             return;
         }
 
-        $price_data = [];
+        $inventory_data = [];
         $timestamp = now(); // Use Laravel's helper for the current timestamp
 
         // 2. Prepare the inventory records
         foreach ($product_ids as $product_id) {
-            $price_data[] = [
+            $inventory_data[] = [
                 'product_id'   => $product_id,
-                'sale_price' => 0.00, // Set to zero (adjust based on your column type)
-                'bp'          => 0,    // Set to zero
+                'retail_price' => 0.00, // Set to zero (adjust based on your column type)
+                'qty'          => 0,    // Set to zero
                 'created_at'   => $timestamp,
                 'updated_at'   => $timestamp,
             ];
         }
-        DB::table('prices')->insert($price_data);
+        DB::table('stocks')->insert($inventory_data);
 
         $this->command->info('Successfully seeded ' . count($inventory_data) . ' inventory records with zeros.');
     }
